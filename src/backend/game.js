@@ -1,9 +1,12 @@
 const { io } = require('./handler');
+const RULES = require('./rules');
+const DECK = RULES.DECK;
+const COLORS = RULES.COLORS;
 const state = {};
 const clientRooms = {};
 const FRAME_RATE = 5;
-
 const maxNumberOfPlayers = 10;
+
 
 module.exports = {
 
@@ -98,6 +101,7 @@ function makeid(length) {
 
 function initGame(clientID, playerName) {
   return {
+    deck: DECK,
     players: [
       {
         client: clientID,
