@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>IM-RPG</title>
+
+	<!-- Load the helper files -->
+	<script type="text/javascript" src="./js/helpers/socket.io.js"></script>
+	<script src="./js/helpers/pixi.min.js"></script>
+</head>
+
+<body id="body">
+	<style>
+		th,td {
+			border: 1px solid black;
+			padding: 1px;
+		}
+	</style>
+	<div id="gameInfoArea" style="background-color:white;display:none;">
+		<span id="gamecodetext"></span>
+
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		
+		<label for="resolution">Resolution:</label>
+		<select name="Resolution" id="resolutionSelect">
+			<option value="624x351">624x351</option>
+			<option value="1280x720">1280x720</option>
+			<option value="1920x1080">1920x1080</option>
+			<option value="WindowSize">Window size</option>
+		</select>
+
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		
+		<label for="fullScreenCheckBox">Fullscreen:</label>
+		<input type="checkbox" id="fullScreenCheckBox">
+
+		<table id="playersTable"></table>
+	</div>
+
+	<div id="mainScreen">
+		<div id="initialScreen">
+			<div>
+				<h1>Isometric Multiplayer RPG</h1>
+				</br>
+				<div>
+					<input type="text" placeholder="Your name" id="name" />
+				</div>
+				</br></br>
+				<button type="submit" id="newGameButton">
+					Create New Game
+				</button>
+				</br></br>
+				<div>OR</div>
+				</br>
+				<div>
+					<input type="text" placeholder="Enter Game Code" id="gameCodeInput" />
+				</div>
+				<button type="submit" id="joinGameButton">
+					Join Game
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<script type="module" src="./js/main/handler.js"></script>
+	<script type="module" src="./js/main/graphics.js"></script>
+	<script type="module" src="./js/main/audio.js"></script>
+	<script type="module" src="./js/main/keyboard.js"></script>
+
+</body>
+
+</html>
