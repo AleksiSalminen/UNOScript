@@ -1,12 +1,10 @@
-const { io } = require("../app");
+const { io } = require("../uno");
 module.exports = { io };
 
 const { 
   createNewGame,
   joinGame,
-  removeClient,
-  respawnPlayer,
-  movePlayer
+  removeClient
 } = require("./game");
 
 
@@ -18,12 +16,6 @@ io.on("connection", (client) => {
 
   client.on("joinGame", handleJoinGame);
   function handleJoinGame(params) { joinGame(client, params); }
-
-  client.on("respawn", handleRespawn);
-  function handleRespawn(params) { respawnPlayer(client, params); }
-
-  client.on("move", handleMovePlayer);
-  function handleMovePlayer(params) { movePlayer(client, params); }
 
   client.on("disconnect", handleDisconnect);
   function handleDisconnect(params) { removeClient(client, params); }
