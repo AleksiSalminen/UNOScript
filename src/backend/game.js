@@ -57,11 +57,11 @@ module.exports = {
     client.join(roomName);
     client.number = numClients + 1;
     client.emit("init", numClients + 1, roomName);
-    
+
     const playerAmount = state[roomName].players.length;
     state[roomName].players.push({
       client: client.id,
-      number: state[roomName].players[playerAmount-1].number + 1,
+      number: state[roomName].players[playerAmount - 1].number + 1,
       name: params.name
     });
   },
@@ -77,7 +77,7 @@ module.exports = {
       return;
     }
 
-    for (let i = 0;i < state[roomName].players.length;i++) {
+    for (let i = 0; i < state[roomName].players.length; i++) {
       let player = state[roomName].players[i];
       if (player.client === client.id) {
         state[roomName].players.splice(i, 1);
@@ -99,9 +99,25 @@ function makeid(length) {
   return result;
 }
 
+function shuffleDeck(deck) {
+  let shuffledDeck = [];
+  let chosenCardIndex = -1;
+
+  while (deck.length > 0) {
+    chosenCardIndex = Math.floor(Math.random() * (deck.length-1));
+    shuffledDeck.push(deck[chosenCardIndex]);
+    deck.splice(chosenCardIndex, 1);
+  }
+
+  return shuffledDeck;
+}
+
 function initGame(clientID, playerName) {
+  const gameDeck = JSON.parse(JSON.stringify(DECK));
+  const shuffledDeck = shuffleDeck(gameDeck);
+  
   return {
-    deck: DECK,
+    deck: shuffledDeck,
     players: [
       {
         client: clientID,
@@ -118,7 +134,7 @@ function gameLoop(roomName) {
   }
 
   // Update players
-  for (h = 0;h < state[roomName].players.length;h++) {
+  for (h = 0; h < state[roomName].players.length; h++) {
     let player = state[roomName].players[h];
 
   }
