@@ -62,7 +62,8 @@ module.exports = {
     state[roomName].players.push({
       client: client.id,
       number: state[roomName].players[playerAmount - 1].number + 1,
-      name: params.name
+      name: params.name,
+      cards: []
     });
   },
 
@@ -122,7 +123,8 @@ function initGame(clientID, playerName) {
       {
         client: clientID,
         number: 1,
-        name: playerName
+        name: playerName,
+        cards: []
       }
     ]
   };
