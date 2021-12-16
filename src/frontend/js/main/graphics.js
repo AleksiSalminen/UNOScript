@@ -49,7 +49,7 @@ function updateLobby(player, players, gameCode) {
   }
 }
 
-function updateGameInfoView(player, players, gameCode, deckSize) {
+function updateGameInfoView(player, players, gameCode, deckSize, discardTop) {
   if (gameCode) {
     let gameCodeTextElem = document.getElementById("gameCodeText2");
     gameCodeTextElem.innerHTML = "Pelikoodi: " + gameCode;
@@ -86,6 +86,9 @@ function updateGameInfoView(player, players, gameCode, deckSize) {
 
   let deckTextElem = document.getElementById("deckText");
   deckTextElem.innerHTML = "Kortteja pakassa: " + deckSize;
+
+  let discardTopText = document.getElementById("discardTop");
+  discardTopText.innerHTML = "Viimeisin kortti: " + JSON.stringify(discardTop);
 }
 
 function updateCardsTableView(player) {
@@ -109,15 +112,15 @@ function updateCardsTableView(player) {
   }
   cardsTable.innerHTML = cardsTableItems;
 
-  
+
 }
 
-function updateGameView(player, players, gameCode, deckSize) {
-  updateGameInfoView(player, players, gameCode, deckSize);
+function updateGameView(player, players, gameCode, deckSize, discardTop) {
+  updateGameInfoView(player, players, gameCode, deckSize, discardTop);
   updateCardsTableView(player);
 }
 
-function updateGraphics(player, players, gameCode, status, deckSize) {
+function updateGraphics(player, players, gameCode, status, deckSize, discardTop) {
   let gameLobbyElem = document.getElementById("gameLobbyScreen");
   let gameElem = document.getElementById("gameScreen");
 
@@ -129,7 +132,7 @@ function updateGraphics(player, players, gameCode, status, deckSize) {
   else if (status === "Playing") {
     gameLobbyElem.style.display = "none";
     gameElem.style.display = "block";
-    updateGameView(player, players, gameCode, deckSize);
+    updateGameView(player, players, gameCode, deckSize, discardTop);
   }
 }
 

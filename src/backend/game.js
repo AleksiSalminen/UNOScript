@@ -78,6 +78,9 @@ module.exports = {
     const roomName = clientRooms[client.id];
     state[roomName].status = "Playing";
     divideCards(state[roomName]);
+    state[roomName].discardPile.push(
+      state[roomName].deck.pop()
+    );
   },
 
   /**
@@ -142,6 +145,7 @@ function censorGamestate (plNumber, gameState) {
   let censoredState = {
     status: gameState.status,
     deckSize: gameState.deck.length,
+    discardTop: gameState.discardPile[gameState.discardPile.length-1],
     players: []
   };
 
