@@ -49,11 +49,50 @@ function updateLobby (player, players, gameCode) {
   }
 }
 
-function updateGameView (player, players, gameCode) {
+function updateGameInfoView (player, players, gameCode, deckSize) {
+  if (gameCode) {
+    let gameCodeTextElem = document.getElementById("gameCodeText2");
+    gameCodeTextElem.innerHTML = "Pelikoodi: " + gameCode;
+  }
 
+  let infoTable = document.getElementById("playerInfoTable");
+  let infoTableItems = `
+    <thead>
+      <th scope="col">Nimi</th>
+      <th scope="col">Kortteja</th>
+    </thead>
+  `;
+
+  // Update info table (players' info)
+  for (let i = 0;i < players.length;i++) {
+    if (players[i].number !== player.number) {
+      infoTableItems += `
+        <tr>
+          <td>` + players[i].name + `</td>
+          <td>` + players[i].cards + `</td>
+        </tr>
+      `;
+    }
+    else {
+      infoTableItems += `
+        <tr>
+          <th scope="row">` + players[i].name + `</th>
+          <th scope="row">` + players[i].cards.length + `</th>
+        </tr>
+      `;
+    }
+  }
+  infoTable.innerHTML = infoTableItems;
+
+  let deckTextElem = document.getElementById("deckText");
+  deckTextElem.innerHTML = "Kortteja pakassa: " + deckSize;
 }
 
-function updateGraphics (player, players, gameCode, status) {
+function updateGameView (player, players, gameCode, deckSize) {
+  updateGameInfoView(player, players, gameCode, deckSize);
+}
+
+function updateGraphics (player, players, gameCode, status, deckSize) {
   let gameLobbyElem = document.getElementById("gameLobbyScreen");
   let gameElem = document.getElementById("gameScreen");
 
@@ -65,7 +104,7 @@ function updateGraphics (player, players, gameCode, status) {
   else if (status === "Playing") {
     gameLobbyElem.style.display = "none";
     gameElem.style.display = "block";
-    updateGameView(player, players, gameCode);
+    updateGameView(player, players, gameCode, deckSize);
   }
 }
 

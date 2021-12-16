@@ -56,7 +56,24 @@
 
 	<!-- The game screen -->
 	<div id="gameScreen" style="display:none" class="container bg-light py-3 my-3">
-		<h1>UNO</h1></br>
+		<div class="row justify-content-center">
+			<!-- The game info view -->
+			<div id="gameInfoView" class="col">
+				<p id="gameCodeText2" class="lead"></p>
+				<div class="table-wrapper-scroll-y my-custom-scrollbar">
+					<table id="playerInfoTable" class="table border table-sm"></table>
+				</div>
+				<p id="deckText" class="lead"></p>
+				<button type="submit" id="takeCardButton">
+					Nosta kortti
+				</button>
+				<p id="cardText" class="lead"></p>
+			</div>
+			<!-- The cards view -->
+			<div id="cardsView" class="col-8">
+				<h1>KORTIT</h1>
+			</div>
+		</div>
 	</div>
 
 
