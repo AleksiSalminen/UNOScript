@@ -50,6 +50,9 @@ module.exports = {
     } else if (numClients > maxNumberOfPlayers - 1) {
       client.emit("tooManyPlayers");
       return;
+    } else if (state[roomName].status === "Playing") {
+      client.emit("gameHasStarted");
+      return
     }
 
     clientRooms[client.id] = roomName;

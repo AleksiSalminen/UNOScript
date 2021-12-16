@@ -20,6 +20,7 @@ socket.on("init", handleInit);
 socket.on("gameState", handleGameState);
 socket.on('unknownCode', handleUnknownCode);
 socket.on('tooManyPlayers', handleTooManyPlayers);
+socket.on('gameHasStarted', handleGameHasStarted);
 
 /**
  * Finds a certain player from a list of players
@@ -159,5 +160,13 @@ function handleUnknownCode() {
 function handleTooManyPlayers() {
   playerNumber = null;
   alert('Pelihuone on täynnä');
+}
+
+/**
+ * 
+ */
+function handleGameHasStarted() {
+  playerNumber = null;
+  alert('Peli on jo alkanut');
 }
 
