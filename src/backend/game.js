@@ -138,6 +138,35 @@ function shuffleDeck(deck) {
   return shuffledDeck;
 }
 
+function censorGamestate (plNumber, gameState) {
+  let censoredState = {
+    status: gameState.status,
+    deckSize: gameState.deck.length,
+    players: []
+  };
+
+  let players = gameState.players;
+  for (let plI = 0;plI < players.length;plI++) {
+    let player = players[plI];
+    if (player.number === plNumber) {
+      censoredState.players.push({
+        number: player.number,
+        name: player.name,
+        cards: player.cards
+      });
+    }
+    else {
+      censoredState.players.push({
+        number: player.number,
+        name: player.name,
+        cards: player.cards.length
+      });
+    }
+  }
+
+  return censoredState;
+}
+
 function initGame(clientID, playerName) {
   const gameDeck = JSON.parse(JSON.stringify(DECK));
   const shuffledDeck = shuffleDeck(gameDeck);
@@ -179,8 +208,12 @@ function startGameInterval(roomName) {
   }, 1000 / FRAME_RATE);
 }
 
-function emitGameState(room, gameState) {
-  // Send this event to everyone in the room.
-  io.sockets.in(room).emit("gameState", JSON.stringify(gameState));
+function emitGameState(roomName, gameState) {
+  let players = gameState.players;
+  for (let plI = 0;plI < players.length;plI++) {
+    let player = players[plI];
+    const censoredState = censorGamestate(player.number, gameState);
+    io.to(player.client).emit("gameState", JSON.stringify(censoredState));
+  }
 }
 
