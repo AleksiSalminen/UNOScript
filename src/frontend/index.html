@@ -42,12 +42,18 @@
 		</div>
 	</div>
 
-	<!-- Game and players info screen -->
-	<div id="gameInfoScreen">
-		<div id="infoGridGontainer" class="container bg-light py-3 my-3">
-
-		</div>
+	<!-- Game and players lobby screen -->
+	<div id="gameLobbyScreen" style="display:none" class="container bg-light py-3 my-3">
+		<h1 id="unoHeading"></h1></br>
+		<p id="gameCodeText" class="lead"></p>
+		<p id="playersAmountText" class="lead"></p>
+		<table id="gameInfoTable" class="table border"></table>
+		<p id="playersNumWarningText" style="display:none">
+			Pelin aloittamiseen tarvitaan vähintään kaksi pelaajaa
+		</p>
+		<button id="startGameButton" type="button" class="btn btn-outline-primary">Aloita peli</button>
 	</div>
+
 
 	<script type="text/javascript" src="./js/helpers/bootstrap.bundle.min.js"></script>
 	<script type="module" src="./js/main/handler.js"></script>

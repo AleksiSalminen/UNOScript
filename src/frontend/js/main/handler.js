@@ -62,7 +62,7 @@ function updateGame(playerNumber, gameState) {
   players = gameState.players;
   player = findPlayer(playerNumber, players);
   updatePlayersStats();
-  GRAPHICS.updateGraphics(player, players);
+  GRAPHICS.updateGraphics(player, players, gameCode);
 }
 
 /**
@@ -114,7 +114,9 @@ function handleInit (plNumber, code) {
   gameCode = code;
   gameActive = true;
   let mainScreen = document.getElementById("mainScreen");
-  mainScreen.remove();
+  mainScreen.style.display = "none";
+  let gameLobbyElem = document.getElementById("gameLobbyScreen");
+  gameLobbyElem.style.display = "block";
 }
 
 /**
