@@ -174,6 +174,8 @@ function initGame(clientID, playerName) {
   return {
     status: "Lobby",
     deck: shuffledDeck,
+    discardPile: [],
+    currentPlayer: 1,
     players: [
       {
         client: clientID,

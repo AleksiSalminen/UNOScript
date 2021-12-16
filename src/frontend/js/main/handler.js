@@ -55,6 +55,22 @@ function updatePlayersStats() {
   
 }
 
+function chooseCard (cell) {
+  alert(cell.innerHTML);
+}
+
+function updateCardsListeners () {
+  let cardsTable = document.getElementById("cardsTable");
+  // Add click listeners to the new table cells
+  for (let i = 0; i < cardsTable.rows.length; i++) {
+    for (let j = 0; j < cardsTable.rows[i].cells.length; j++) {
+      cardsTable.rows[i].cells[j].onclick = function () {
+        chooseCard(this);
+      };
+    }
+  }
+}
+
 /**
 * Updates the game
 * @param {*} playerNumber 
@@ -68,6 +84,7 @@ function updateGame(playerNumber, gameState) {
   player = findPlayer(playerNumber, players);
   updatePlayersStats();
   GRAPHICS.updateGraphics(player, players, gameCode, status, deckSize);
+  updateCardsListeners();
 }
 
 /**
