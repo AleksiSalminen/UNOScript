@@ -5,6 +5,7 @@ const COLORS = RULES.COLORS;
 const state = {};
 const clientRooms = {};
 const FRAME_RATE = 5;
+const numOfStartCards = 7;
 const maxNumberOfPlayers = 10;
 
 
@@ -76,6 +77,7 @@ module.exports = {
   startGame (client, params) {
     const roomName = clientRooms[client.id];
     state[roomName].status = "Playing";
+    divideCards(state[roomName]);
   },
 
   /**
@@ -109,6 +111,18 @@ function makeid(length) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
+}
+
+function divideCards (state) {
+  let deck = state.deck;
+  // Go through the rounds of dividing the cards
+  for (let round = 1;round <= numOfStartCards;round++) {
+    // Give one card to each player
+    for (let plI = 0;plI < state.players.length;plI++) {
+      let player = state.players[plI];
+      player.cards.push(deck.pop());
+    }
+  }
 }
 
 function shuffleDeck(deck) {
