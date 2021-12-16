@@ -1,0 +1,6 @@
+
+#infoGridGontainer {
+    display: grid;
+    grid-row-gap: 50px;
+    grid-column-gap: 50px;
+}

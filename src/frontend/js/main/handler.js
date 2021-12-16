@@ -25,7 +25,7 @@ socket.on('tooManyPlayers', handleTooManyPlayers);
  * @param {*} plNumber 
  * @param {*} players 
  */
- function findPlayer(plNumber, players) {
+function findPlayer(plNumber, players) {
   for (let i = 0; i < players.length; i++) {
       let pl = players[i];
       if (pl.number === plNumber) {
@@ -41,7 +41,7 @@ socket.on('tooManyPlayers', handleTooManyPlayers);
 function initiateGame(gameState) {
   players = gameState.players;
   player = findPlayer(playerNumber, players);
-  GRAPHICS.initiateGraphics();
+  GRAPHICS.updateGraphics(player, players);
   initialized = true;
 }
 
@@ -58,11 +58,11 @@ function updatePlayersStats() {
 * @param {*} gameState 
 */
 function updateGame(playerNumber, gameState) {
-  //console.log(gameState);
+  console.log(gameState);
   players = gameState.players;
   player = findPlayer(playerNumber, players);
   updatePlayersStats();
-  GRAPHICS.updateGraphics();
+  GRAPHICS.updateGraphics(player, players);
 }
 
 /**
@@ -90,6 +90,7 @@ document.getElementById('joinGameButton').addEventListener('click', joinGame);
  */
 function handleGameState(gameState) {
   gameState = JSON.parse(gameState);
+  console.log("Gamecode: " + gameCode);
   if (!gameActive) {
     return;
   }
@@ -111,7 +112,6 @@ function handleGameState(gameState) {
 function handleInit (plNumber, code) {
   playerNumber = plNumber;
   gameCode = code;
-  console.log("Gamecode: " + gameCode);
   gameActive = true;
   let mainScreen = document.getElementById("mainScreen");
   mainScreen.remove();
