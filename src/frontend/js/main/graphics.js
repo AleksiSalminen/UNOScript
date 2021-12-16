@@ -44,10 +44,12 @@ function updateGraphics (player, players, gameCode) {
   let startButton = document.getElementById("startGameButton");
   if (players.length >= 2) {
     warningText.style.display = "none";
+    startButton.className = "btn btn-primary";
     startButton.disabled = false;
   }
   else {
     warningText.style.display = "block";
+    startButton.className = "btn btn-outline-primary";
     startButton.disabled = true;
   }
 }
