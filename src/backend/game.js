@@ -69,6 +69,14 @@ module.exports = {
 
   /**
    * 
+   */
+  startGame (client, params) {
+    const roomName = clientRooms[client.id];
+    state[roomName].status = "Playing";
+  },
+
+  /**
+   * 
    * @param {*} client 
    * @param {*} params 
    */
@@ -118,6 +126,7 @@ function initGame(clientID, playerName) {
   const shuffledDeck = shuffleDeck(gameDeck);
   
   return {
+    status: "Lobby",
     deck: shuffledDeck,
     players: [
       {

@@ -10,6 +10,7 @@ let players;
 let gameCode;
 let initialized = false;
 let gameActive = false;
+let status = "";
 
 /* Establish socket connection with the server backend */
 const socket = io(serverAddress);
@@ -59,10 +60,11 @@ function updatePlayersStats() {
 */
 function updateGame(playerNumber, gameState) {
   console.log(gameState);
+  status = gameState.status;
   players = gameState.players;
   player = findPlayer(playerNumber, players);
   updatePlayersStats();
-  GRAPHICS.updateGraphics(player, players, gameCode);
+  GRAPHICS.updateGraphics(player, players, gameCode, status);
 }
 
 /**
@@ -83,6 +85,14 @@ function joinGame() {
   socket.emit('joinGame', { code: code, name: name });
 }
 document.getElementById('joinGameButton').addEventListener('click', joinGame);
+
+/**
+ * Emit a message to the server to start the game
+ */
+function startGame() {
+  socket.emit('startGame', {});
+}
+document.getElementById('startGameButton').addEventListener('click', startGame);
 
 /**
  * Update the game according to the game state

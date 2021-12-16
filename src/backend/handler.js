@@ -4,6 +4,7 @@ module.exports = { io };
 const { 
   createNewGame,
   joinGame,
+  startGame,
   removeClient
 } = require("./game");
 
@@ -17,8 +18,11 @@ io.on("connection", (client) => {
   client.on("joinGame", handleJoinGame);
   function handleJoinGame(params) { joinGame(client, params); }
 
+  client.on("startGame", handleStartGame);
+  function handleStartGame(params) { startGame(client, params) }
+
   client.on("disconnect", handleDisconnect);
   function handleDisconnect(params) { removeClient(client, params); }
-  
+
 });
 

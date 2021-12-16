@@ -1,10 +1,5 @@
 
-
-function updateGraphics (player, players, gameCode) {
-  let gameLobbyElem = document.getElementById("gameLobbyScreen");
-  
-  let unoHeadingElem = document.getElementById("unoHeading");
-  unoHeadingElem.innerHTML = "UNO";
+function updateLobby (player, players, gameCode) {
 
   if (gameCode) {
     let gameCodeTextElem = document.getElementById("gameCodeText");
@@ -51,6 +46,26 @@ function updateGraphics (player, players, gameCode) {
     warningText.style.display = "block";
     startButton.className = "btn btn-outline-primary";
     startButton.disabled = true;
+  }
+}
+
+function updateGameView (player, players, gameCode) {
+
+}
+
+function updateGraphics (player, players, gameCode, status) {
+  let gameLobbyElem = document.getElementById("gameLobbyScreen");
+  let gameElem = document.getElementById("gameScreen");
+
+  if (status === "Lobby") {
+    gameLobbyElem.style.display = "block";
+    gameElem.style.display = "none";
+    updateLobby(player, players, gameCode)
+  } 
+  else if (status === "Playing") {
+    gameLobbyElem.style.display = "none";
+    gameElem.style.display = "block";
+    updateGameView(player, players, gameCode);
   }
 }
 
