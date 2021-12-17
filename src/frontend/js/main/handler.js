@@ -60,8 +60,10 @@ function getImageValue (cell) {
 }
 
 function chooseCard (cell) {
-  const card = getImageValue(cell.innerHTML);
-  socket.emit('addCard', JSON.stringify(card));
+  if (cell.innerHTML.length > 0) {
+    const card = getImageValue(cell.innerHTML);
+    socket.emit('addCard', JSON.stringify(card));
+  }
 }
 
 function drawCard () {
