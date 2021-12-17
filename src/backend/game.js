@@ -4,7 +4,6 @@ const DECK = RULES.DECK;
 const COLORS = RULES.COLORS;
 const state = {};
 const clientRooms = {};
-const FRAME_RATE = 5;
 const numOfStartCards = 7;
 const maxNumberOfPlayers = 10;
 
@@ -24,7 +23,7 @@ module.exports = {
     client.number = 1;
     client.emit("init", client.number, roomName);
 
-    startGameInterval(roomName);
+    emitGameState(state[roomName]);
   },
 
   /**
@@ -60,7 +59,6 @@ module.exports = {
 
     client.join(roomName);
     client.number = numClients + 1;
-    client.emit("init", numClients + 1, roomName);
 
     const playerAmount = state[roomName].players.length;
     state[roomName].players.push({
@@ -69,6 +67,9 @@ module.exports = {
       name: params.name,
       cards: []
     });
+    client.emit("init", client.number, roomName);
+
+    emitGameState(state[roomName]);
   },
 
   /**
@@ -81,6 +82,7 @@ module.exports = {
     state[roomName].discardPile.push(
       state[roomName].deck.pop()
     );
+    emitGameState(state[roomName]);
   },
 
   /**
@@ -101,6 +103,8 @@ module.exports = {
         i = state[roomName].players.length;
       }
     }
+
+    emitGameState(state[roomName]);
   },
 
   /**
@@ -123,6 +127,8 @@ module.exports = {
     else {
       console.log("Not user's turn");
     }
+
+    emitGameState(state[roomName]);
   },
 
   /**
@@ -139,6 +145,8 @@ module.exports = {
     else {
       console.log("Not user's turn");
     }
+
+    emitGameState(state[roomName]);
   },
 
   /**
@@ -147,10 +155,9 @@ module.exports = {
    * @param {*} params 
    */
   callUno (client, params) {
-    console.log("UNO");
-
     const roomName = clientRooms[client.id];
     state[roomName].calledUno = true;
+    emitGameState(state[roomName]);
   }
 };
 
@@ -432,30 +439,7 @@ function initGame(clientID, playerName) {
   };
 }
 
-function gameLoop(roomName) {
-  if (!state[roomName]) {
-    return;
-  }
-
-  // Update players
-  for (h = 0; h < state[roomName].players.length; h++) {
-    let player = state[roomName].players[h];
-
-  }
-}
-
-/**
- * Main game loop
- * @param {*} roomName 
- */
-function startGameInterval(roomName) {
-  const intervalId = setInterval(() => {
-    gameLoop(roomName);
-    emitGameState(roomName, state[roomName]);
-  }, 1000 / FRAME_RATE);
-}
-
-function emitGameState(roomName, gameState) {
+function emitGameState(gameState) {
   let players = gameState.players;
   for (let plI = 0;plI < players.length;plI++) {
     let player = players[plI];

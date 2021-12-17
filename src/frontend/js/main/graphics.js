@@ -150,6 +150,10 @@ function updateGraphics(player, players, gameCode, status, deckSize, discardTop,
   let gameLobbyElem = document.getElementById("gameLobbyScreen");
   let gameElem = document.getElementById("gameScreen");
 
+  if (document.getElementById("mainScreen").style.display !== "none") {
+    document.getElementById("mainScreen").style.display = "none";
+  }
+
   if (status === "Lobby") {
     gameLobbyElem.style.display = "block";
     gameElem.style.display = "none";

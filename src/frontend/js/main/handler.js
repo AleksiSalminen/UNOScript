@@ -8,8 +8,6 @@ let player;
 let playerNumber;
 let players;
 let gameCode;
-let initialized = false;
-let gameActive = false;
 let status = "";
 let deckSize = 0;
 let discardTop;
@@ -37,24 +35,6 @@ function findPlayer(plNumber, players) {
           return pl;
       }
   }
-}
-
-/**
-* Initiates the game
-* @param {*} gameState 
-*/
-function initiateGame(gameState) {
-  players = gameState.players;
-  player = findPlayer(playerNumber, players);
-  GRAPHICS.updateGraphics(player, players);
-  initialized = true;
-}
-
-/**
-* 
-*/
-function updatePlayersStats() {
-  
 }
 
 function getImageValue (cell) {
@@ -119,7 +99,6 @@ function updateGame(playerNumber, gameState) {
   players = gameState.players;
   currentPlayer = gameState.currentPlayer;
   player = findPlayer(playerNumber, players);
-  updatePlayersStats();
   GRAPHICS.updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer);
   updateCardsListeners();
 }
@@ -157,33 +136,20 @@ document.getElementById('startGameButton').addEventListener('click', startGame);
  */
 function handleGameState(gameState) {
   gameState = JSON.parse(gameState);
-  console.log("Gamecode: " + gameCode);
-  if (!gameActive) {
-    return;
-  }
-  else if (!initialized) {
-    initiateGame(gameState);
-  }
-  else {
-    // Send the corresponding messages according to keys pressed
-    sendKeysPressed();
-    // Update the game according to the game state
-    updateGame(playerNumber, gameState);
-  }
+  // Send the corresponding messages according to keys pressed
+  sendKeysPressed();
+  // Update the game according to the game state
+  updateGame(playerNumber, gameState);
 }
 
 /**
- * Initiates the game
- * @param {*} gameState 
+ * 
+ * @param {*} plNumber 
+ * @param {*} code 
  */
 function handleInit (plNumber, code) {
   playerNumber = plNumber;
   gameCode = code;
-  gameActive = true;
-  let mainScreen = document.getElementById("mainScreen");
-  mainScreen.style.display = "none";
-  let gameLobbyElem = document.getElementById("gameLobbyScreen");
-  gameLobbyElem.style.display = "block";
 }
 
 /**
