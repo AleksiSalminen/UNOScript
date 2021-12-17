@@ -57,8 +57,31 @@ function updatePlayersStats() {
   
 }
 
-function chooseCard (card) {
-  socket.emit('addCard', card.innerHTML);
+function getImageValue (cell) {
+  let card = {};
+
+  let startPos = cell.search('<p hidden="">') + 13;
+
+  let cardStr = "";
+  for (let i = startPos;i < cell.length;i++) {
+    cardStr += cell[i];
+    if (cell[i] === '}') {
+      i = cell.length;
+    }
+  }
+  console.log(cardStr);
+  // Remove possible line breaks
+  cardStr = cardStr.replace(/(\r\n|\n|\r)/gm, "");
+  // Remove possible spaces
+  cardStr = cardStr.replace(/\s/g, '');
+
+  card = JSON.parse(cardStr);
+  return card;
+}
+
+function chooseCard (cell) {
+  const card = getImageValue(cell.innerHTML);
+  socket.emit('addCard', JSON.stringify(card));
 }
 
 function drawCard () {

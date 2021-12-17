@@ -124,8 +124,8 @@ function updateCardsTableView(player) {
       const card = cards[row + col * cardsOnCol];
       if (card) {
         const cardImgLoc = "./images/cards/" + card.color + "/" + card.number + ".png";
-        cardsTableItems += `
-          <td>
+        cardsTableItems += `<td>
+            <p hidden>` + JSON.stringify(card) + `</p>
             <img src=` + cardImgLoc + ` class="img-fluid">
           </td>
         `;
