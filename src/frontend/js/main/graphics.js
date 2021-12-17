@@ -107,8 +107,9 @@ function updateGameInfoView(player, players, gameCode, deckSize, discardTop, cur
   let deckTextElem = document.getElementById("deckText");
   deckTextElem.innerHTML = "Kortteja pakassa: " + deckSize;
 
-  let discardTopText = document.getElementById("discardTop");
-  discardTopText.innerHTML = "Viimeisin kortti: " + JSON.stringify(discardTop);
+  let discardTopImgElem = document.getElementById("discardTop");
+  let discardTopImgLoc = "./images/cards/" + discardTop.color + "/" + discardTop.number + ".png";
+  discardTopImgElem.src = discardTopImgLoc;
 }
 
 function updateCardsTableView(player) {
