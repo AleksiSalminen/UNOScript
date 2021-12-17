@@ -27,7 +27,7 @@
 					<input type="text" placeholder="Nimesi" id="name" />
 				</div>
 				</br></br>
-				<button type="submit" id="newGameButton">
+				<button type="submit" id="newGameButton" class="btn btn-primary">
 					Luo uusi moninpeli
 				</button>
 				</br></br>
@@ -36,7 +36,8 @@
 				<div>
 					<input type="text" placeholder="Anna pelikoodi" id="gameCodeInput" />
 				</div>
-				<button type="submit" id="joinGameButton">
+				</br>
+				<button type="submit" id="joinGameButton" class="btn btn-primary">
 					Liity peliin
 				</button>
 			</div>
@@ -59,24 +60,29 @@
 	<div id="gameScreen" style="display:none" class="container bg-light py-3 my-3">
 		<div class="row justify-content-center">
 			<!-- The game info view -->
-			<div id="gameInfoView" class="col">
+			<div id="gameInfoView" class="col-3">
 				<p id="gameCodeText2" class="lead"></p>
-				<div class="table-wrapper-scroll-y my-custom-scrollbar">
+				<div class="table-responsive players">
 					<table id="playerInfoTable" class="table border table-sm"></table>
 				</div>
 				<p id="deckText" class="lead"></p>
-				<button type="submit" id="drawCardButton">
+				<button type="submit" id="drawCardButton" class="btn btn-outline-primary">
 					Nosta kortti
 				</button>
-				<img id="discardTop"></img>
-				<button type="submit" id="unoButton">
-					UNO
-				</button>
+				</br></br>
+				<img id="discardTop" class="discardTopImg"></img>
 			</div>
 			<!-- The cards view -->
 			<div id="cardsView" class="col-8">
-				<h1>KORTIT</h1>
-				<div class="table-wrapper-scroll-x my-custom-scrollbar">
+				<h5>
+					KORTIT
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="submit" id="unoButton" class="btn btn-outline-primary">
+						UNO
+					</button>
+				</h5>
+				
+				<div class="table-responsive cards">
 					<table id="cardsTable" class="table border cards"></table>
 				</div>
 			</div>

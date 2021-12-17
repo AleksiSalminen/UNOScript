@@ -114,7 +114,7 @@ function updateGameInfoView(player, players, gameCode, deckSize, discardTop, cur
 
 function updateCardsTableView(player) {
   const cards = player.cards;
-  const cardsOnCol = 2;
+  const cardsOnCol = Math.ceil(cards.length/10);
   let cardsTable = document.getElementById("cardsTable");
   let cardsTableItems = "";
 

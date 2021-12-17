@@ -2,3 +2,19 @@ table.cards td:hover {
     background-color: rgba(0,0,0,.075);
     cursor: pointer;
 }
+
+.table-responsive.cards {
+    max-height:70%;
+}
+
+.table-responsive.players {
+    max-height:30%;
+}
+
+.discardTopImg {
+    max-height:25%;
+}
+
+.game-info-view {
+    max-height:80%;
+}
