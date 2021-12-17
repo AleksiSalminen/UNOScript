@@ -284,13 +284,15 @@ function changeTurn (currentPlayerIndex, rounds, state) {
       }
     }
   }
+
+  return currentPlayerIndex;
 }
 
 function handleSpecialCards(currentPlayerIndex, card, state) {
   let wasSpecialCard = false;
 
   // Color Joker -card
-  if (card.color === COLORS.BLACK && card.number === 1) {
+  if (card.number === 13) {
     wasSpecialCard = true;
     // Ask for the new color
 
@@ -298,22 +300,32 @@ function handleSpecialCards(currentPlayerIndex, card, state) {
     changeTurn(currentPlayerIndex, 1, state);
   }
   // +4 Joker -card
-  else if (card.color === COLORS.BLACK && card.number === 2) {
+  else if (card.number === 14) {
     wasSpecialCard = true;
-    // Make the next player draw four cards
-
-    // Skip the next player
-    changeTurn(currentPlayerIndex, 2, state);
     // Ask for the new color
     
+    // Change turn to the next player
+    currentPlayerIndex = changeTurn(currentPlayerIndex, 1, state);
+    // Make the next player draw two cards
+    let currentPlayerClientID = state.players[currentPlayerIndex].client;
+    drawCardForPlayer(currentPlayerClientID, state);
+    drawCardForPlayer(currentPlayerClientID, state);
+    drawCardForPlayer(currentPlayerClientID, state);
+    drawCardForPlayer(currentPlayerClientID, state);
+    // Change turn to the next player
+    currentPlayerIndex = changeTurn(currentPlayerIndex, 1, state);
   }
   // Draw two -card
   else if (card.number === 10) {
     wasSpecialCard = true;
+    // Change turn to the next player
+    currentPlayerIndex = changeTurn(currentPlayerIndex, 1, state);
     // Make the next player draw two cards
-
-    // Skip the next player
-    changeTurn(currentPlayerIndex, 2, state);
+    let currentPlayerClientID = state.players[currentPlayerIndex].client;
+    drawCardForPlayer(currentPlayerClientID, state);
+    drawCardForPlayer(currentPlayerClientID, state);
+    // Change turn to the next player
+    currentPlayerIndex = changeTurn(currentPlayerIndex, 1, state);
   }
   // Reverse direction -card
   else if (card.number === 11) {

@@ -101,11 +101,11 @@ const DECK = [
     // BLACK DECK (Joker cards)
 
     // Color Joker -cards
-    { color: BLACK, number: 1 }, { color: BLACK, number: 1 },
-    { color: BLACK, number: 1 }, { color: BLACK, number: 1 },
+    { color: BLACK, number: 13 }, { color: BLACK, number: 13 },
+    { color: BLACK, number: 13 }, { color: BLACK, number: 13 },
     // +4 Joker -cards
-    { color: BLACK, number: 2 }, { color: BLACK, number: 2 },
-    { color: BLACK, number: 2 }, { color: BLACK, number: 2 },
+    { color: BLACK, number: 14 }, { color: BLACK, number: 14 },
+    { color: BLACK, number: 14 }, { color: BLACK, number: 14 },
 ]
 
 
