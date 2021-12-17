@@ -122,7 +122,12 @@ function updateCardsTableView(player) {
     for (let col = 0; col < Math.ceil(cards.length / cardsOnCol); col++) {
       const card = cards[row + col * cardsOnCol];
       if (card) {
-        cardsTableItems += `<td>` + JSON.stringify(card) + `</td>`;
+        const cardImgLoc = "./images/cards/" + card.color + "/" + card.number + ".png";
+        cardsTableItems += `
+          <td>
+            <img src=` + cardImgLoc + ` class="img-fluid">
+          </td>
+        `;
       }
       else {
         cardsTableItems += `<td></td>`;
