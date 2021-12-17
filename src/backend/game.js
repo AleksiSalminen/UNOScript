@@ -114,7 +114,7 @@ module.exports = {
     
     if (checkIfUserTurn(client.id, state[roomName])) {
       if (checkIfValidCard(card, state[roomName])) {
-        console.log("Valid card");
+        makeAPlay(client.id, card, state[roomName]);
       }
       else {
         console.log("Invalid card");
@@ -184,6 +184,39 @@ function checkIfValidCard(card, state) {
   }
 
   return isValidCard;
+}
+
+function makeAPlay(clientID, card, state) {
+  let currentPlayer = {};
+  let currentPlayerIndex = -1;
+  for (let plI = 0;plI < state.players.length;plI++) {
+    const player = state.players[plI];
+    if (player.client === clientID) {
+      currentPlayer = player;
+      currentPlayerIndex = plI;
+      plI = state.players.length;
+    }
+  }
+
+  for (let cardIndex = 0;cardIndex < currentPlayer.cards.length;cardIndex++) {
+    let curCard = currentPlayer.cards[cardIndex];
+    if (curCard.color == card.color && curCard.number == card.number) {
+      // Remove the played card
+      currentPlayer.cards.splice(cardIndex, 1);
+      cardIndex = currentPlayer.cards.length;
+    }
+  }
+
+  // Add the card to the top of the discard pile
+  state.discardPile.push(card);
+
+  // Change the turn
+  if (currentPlayerIndex+2 <= state.players.length) {
+    state.currentPlayer = state.players[currentPlayerIndex+1].number;
+  }
+  else {
+    state.currentPlayer = state.players[0].number;
+  }
 }
 
 function shuffleDeck(deck) {
