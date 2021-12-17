@@ -60,6 +60,11 @@ function chooseCard (card) {
   socket.emit('addCard', card.innerHTML);
 }
 
+function drawCard () {
+  socket.emit('drawCard', {});
+}
+document.getElementById('drawCardButton').addEventListener('click', drawCard);
+
 function updateCardsListeners () {
   let cardsTable = document.getElementById("cardsTable");
   // Add click listeners to the new table cells

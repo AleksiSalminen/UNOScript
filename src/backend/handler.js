@@ -6,7 +6,8 @@ const {
   joinGame,
   startGame,
   removeClient,
-  addCard
+  addCard,
+  drawCard
 } = require("./game");
 
 
@@ -27,6 +28,9 @@ io.on("connection", (client) => {
 
   client.on("addCard", handleAddCard);
   function handleAddCard(params) { addCard(client, params); }
+
+  client.on("drawCard", handleDrawCard);
+  function handleDrawCard(params) { drawCard(client, params) }
 
 });
 

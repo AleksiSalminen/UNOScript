@@ -123,6 +123,22 @@ module.exports = {
     else {
       console.log("Not user's turn");
     }
+  },
+
+  /**
+   * 
+   * @param {*} client 
+   * @param {*} params 
+   */
+  drawCard (client, params) {
+    const roomName = clientRooms[client.id];
+    
+    if (checkIfUserTurn(client.id, state[roomName])) {
+      drawCardForPlayer(client.id, state[roomName]);
+    }
+    else {
+      console.log("Not user's turn");
+    }
   }
 };
 
@@ -217,6 +233,21 @@ function makeAPlay(clientID, card, state) {
   else {
     state.currentPlayer = state.players[0].number;
   }
+}
+
+function drawCardForPlayer(clientID, state) {
+  let currentPlayer = {};
+  let currentPlayerIndex = -1;
+  for (let plI = 0;plI < state.players.length;plI++) {
+    const player = state.players[plI];
+    if (player.client === clientID) {
+      currentPlayer = player;
+      currentPlayerIndex = plI;
+      plI = state.players.length;
+    }
+  }
+  
+  currentPlayer.cards.push(state.deck.pop());
 }
 
 function shuffleDeck(deck) {
