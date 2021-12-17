@@ -11,6 +11,10 @@ table.cards td:hover {
     max-height:25%;
 }
 
+.table-responsive.cards {
+    max-height:70%;
+}
+
 .discardTopImg {
     max-height:25%;
 }
