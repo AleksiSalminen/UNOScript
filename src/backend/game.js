@@ -139,6 +139,18 @@ module.exports = {
     else {
       console.log("Not user's turn");
     }
+  },
+
+  /**
+   * 
+   * @param {*} client 
+   * @param {*} params 
+   */
+  callUno (client, params) {
+    console.log("UNO");
+
+    const roomName = clientRooms[client.id];
+    state[roomName].calledUno = true;
   }
 };
 
@@ -226,6 +238,14 @@ function makeAPlay(clientID, card, state) {
   // Add the card to the top of the discard pile
   state.discardPile.push(card);
 
+  // Handle the UNO case
+  if (currentPlayer.cards.length === 1 && !state.calledUno) {
+    // Force the player to draw two cards
+    drawCardForPlayer(clientID, state);
+    drawCardForPlayer(clientID, state);
+  }
+  state.calledUno = false;
+
   // Change the turn
   if (currentPlayerIndex+2 <= state.players.length) {
     state.currentPlayer = state.players[currentPlayerIndex+1].number;
@@ -246,7 +266,7 @@ function drawCardForPlayer(clientID, state) {
       plI = state.players.length;
     }
   }
-  
+
   currentPlayer.cards.push(state.deck.pop());
 }
 
@@ -302,6 +322,7 @@ function initGame(clientID, playerName) {
     deck: shuffledDeck,
     discardPile: [],
     currentPlayer: 1,
+    unoCalled: false,
     players: [
       {
         client: clientID,

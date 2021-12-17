@@ -7,7 +7,8 @@ const {
   startGame,
   removeClient,
   addCard,
-  drawCard
+  drawCard,
+  callUno
 } = require("./game");
 
 
@@ -30,7 +31,10 @@ io.on("connection", (client) => {
   function handleAddCard(params) { addCard(client, params); }
 
   client.on("drawCard", handleDrawCard);
-  function handleDrawCard(params) { drawCard(client, params) }
+  function handleDrawCard(params) { drawCard(client, params); }
+
+  client.on("callUno", handleCallUno);
+  function handleCallUno(params) { callUno(client, params); }
 
 });
 

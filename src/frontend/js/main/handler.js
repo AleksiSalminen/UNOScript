@@ -65,6 +65,11 @@ function drawCard () {
 }
 document.getElementById('drawCardButton').addEventListener('click', drawCard);
 
+function callUno () {
+  socket.emit('callUno', {});
+}
+document.getElementById('unoButton').addEventListener('click', callUno);
+
 function updateCardsListeners () {
   let cardsTable = document.getElementById("cardsTable");
   // Add click listeners to the new table cells
