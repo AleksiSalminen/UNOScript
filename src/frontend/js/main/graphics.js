@@ -49,7 +49,7 @@ function updateLobby(player, players, gameCode) {
   }
 }
 
-function updateGameInfoView(player, players, gameCode, deckSize, discardTop) {
+function updateGameInfoView(player, players, gameCode, deckSize, discardTop, currentPlayer) {
   if (gameCode) {
     let gameCodeTextElem = document.getElementById("gameCodeText2");
     gameCodeTextElem.innerHTML = "Pelikoodi: " + gameCode;
@@ -66,20 +66,40 @@ function updateGameInfoView(player, players, gameCode, deckSize, discardTop) {
   // Update info table (players' info)
   for (let i = 0; i < players.length; i++) {
     if (players[i].number !== player.number) {
-      infoTableItems += `
-        <tr>
-          <td>` + players[i].name + `</td>
-          <td>` + players[i].cards + `</td>
-        </tr>
-      `;
+      if (currentPlayer == players[i].number) {
+        infoTableItems += `
+          <tr class="table-primary">
+            <td>` + players[i].name + `</td>
+            <td>` + players[i].cards + `</td>
+          </tr>
+        `;
+      }
+      else {
+        infoTableItems += `
+          <tr>
+            <td>` + players[i].name + `</td>
+            <td>` + players[i].cards + `</td>
+          </tr>
+        `;
+      }
     }
     else {
-      infoTableItems += `
-        <tr>
-          <th scope="row">` + players[i].name + `</th>
-          <th scope="row">` + players[i].cards.length + `</th>
-        </tr>
-      `;
+      if (currentPlayer == players[i].number) {
+        infoTableItems += `
+          <tr class="table-primary">
+            <th scope="row">` + players[i].name + `</th>
+            <th scope="row">` + players[i].cards.length + `</th>
+          </tr>
+        `;
+      }
+      else {
+        infoTableItems += `
+          <tr>
+            <th scope="row">` + players[i].name + `</th>
+            <th scope="row">` + players[i].cards.length + `</th>
+          </tr>
+        `;
+      }
     }
   }
   infoTable.innerHTML = infoTableItems;
@@ -115,12 +135,12 @@ function updateCardsTableView(player) {
 
 }
 
-function updateGameView(player, players, gameCode, deckSize, discardTop) {
-  updateGameInfoView(player, players, gameCode, deckSize, discardTop);
+function updateGameView(player, players, gameCode, deckSize, discardTop, currentPlayer) {
+  updateGameInfoView(player, players, gameCode, deckSize, discardTop, currentPlayer);
   updateCardsTableView(player);
 }
 
-function updateGraphics(player, players, gameCode, status, deckSize, discardTop) {
+function updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer) {
   let gameLobbyElem = document.getElementById("gameLobbyScreen");
   let gameElem = document.getElementById("gameScreen");
 
@@ -132,7 +152,7 @@ function updateGraphics(player, players, gameCode, status, deckSize, discardTop)
   else if (status === "Playing") {
     gameLobbyElem.style.display = "none";
     gameElem.style.display = "block";
-    updateGameView(player, players, gameCode, deckSize, discardTop);
+    updateGameView(player, players, gameCode, deckSize, discardTop, currentPlayer);
   }
 }
 

@@ -13,6 +13,7 @@ let gameActive = false;
 let status = "";
 let deckSize = 0;
 let discardTop;
+let currentPlayer;
 
 /* Establish socket connection with the server backend */
 const socket = io(serverAddress);
@@ -93,9 +94,10 @@ function updateGame(playerNumber, gameState) {
   deckSize = gameState.deckSize;
   discardTop = gameState.discardTop;
   players = gameState.players;
+  currentPlayer = gameState.currentPlayer;
   player = findPlayer(playerNumber, players);
   updatePlayersStats();
-  GRAPHICS.updateGraphics(player, players, gameCode, status, deckSize, discardTop);
+  GRAPHICS.updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer);
   updateCardsListeners();
 }
 

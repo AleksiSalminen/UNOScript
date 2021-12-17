@@ -383,6 +383,7 @@ function censorGamestate (plNumber, gameState) {
     status: gameState.status,
     deckSize: gameState.deck.length,
     discardTop: gameState.discardPile[gameState.discardPile.length-1],
+    currentPlayer: gameState.currentPlayer,
     players: []
   };
 
@@ -419,6 +420,7 @@ function initGame(clientID, playerName) {
     currentPlayer: 1,
     direction: "Normal",
     unoCalled: false,
+    colorSelection: false,
     players: [
       {
         client: clientID,
