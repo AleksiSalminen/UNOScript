@@ -91,7 +91,7 @@ const DECK = [
     { color: YELLOW, number: 7 }, { color: YELLOW, number: 7 },
     { color: YELLOW, number: 8 }, { color: YELLOW, number: 8 },
     { color: YELLOW, number: 9 }, { color: YELLOW, number: 9 },
-    // Take two -cards
+    // Draw two -cards
     { color: YELLOW, number: 10 }, { color: YELLOW, number: 10 },
     // Reverse direction -cards
     { color: YELLOW, number: 11 }, { color: YELLOW, number: 11 },

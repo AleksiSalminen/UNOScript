@@ -214,17 +214,23 @@ function checkIfValidCard(card, state) {
   return isValidCard;
 }
 
-function makeAPlay(clientID, card, state) {
-  let currentPlayer = {};
+function findPlayerIndexFromID (clientID, state) {
   let currentPlayerIndex = -1;
+
   for (let plI = 0;plI < state.players.length;plI++) {
     const player = state.players[plI];
     if (player.client === clientID) {
-      currentPlayer = player;
       currentPlayerIndex = plI;
       plI = state.players.length;
     }
   }
+
+  return currentPlayerIndex;
+}
+
+function makeAPlay(clientID, card, state) {
+  let currentPlayerIndex = findPlayerIndexFromID(clientID, state);
+  let currentPlayer = state.players[currentPlayerIndex];
 
   for (let cardIndex = 0;cardIndex < currentPlayer.cards.length;cardIndex++) {
     let curCard = currentPlayer.cards[cardIndex];
@@ -246,13 +252,90 @@ function makeAPlay(clientID, card, state) {
   }
   state.calledUno = false;
 
-  // Change the turn
-  if (currentPlayerIndex+2 <= state.players.length) {
-    state.currentPlayer = state.players[currentPlayerIndex+1].number;
+  // Check for special cards
+  const wasSpecialCard = handleSpecialCards(currentPlayerIndex, card, state);
+
+  // Change the turn here (if no special card)
+  if (!wasSpecialCard) {
+    changeTurn(currentPlayerIndex, 1, state);
   }
-  else {
-    state.currentPlayer = state.players[0].number;
+}
+
+function changeTurn (currentPlayerIndex, rounds, state) {
+  for (let round = 0;round < rounds;round++) {
+    if (state.direction === "Normal") {
+      if (currentPlayerIndex+2 <= state.players.length) {
+        state.currentPlayer = state.players[currentPlayerIndex+1].number;
+        currentPlayerIndex += 1
+      }
+      else {
+        state.currentPlayer = state.players[0].number;
+        currentPlayerIndex = 0;
+      }
+    }
+    else if (state.direction === "Reversed") {
+      if (currentPlayerIndex-1 >= 0) {
+        state.currentPlayer = state.players[currentPlayerIndex-1].number;
+        currentPlayerIndex -= 1;
+      }
+      else {
+        state.currentPlayer = state.players[state.players.length-1].number;
+        currentPlayerIndex = state.players.length-1;
+      }
+    }
   }
+}
+
+function handleSpecialCards(currentPlayerIndex, card, state) {
+  let wasSpecialCard = false;
+
+  // Color Joker -card
+  if (card.color === COLORS.BLACK && card.number === 1) {
+    wasSpecialCard = true;
+    // Ask for the new color
+
+    // Change turn
+    changeTurn(currentPlayerIndex, 1, state);
+  }
+  // +4 Joker -card
+  else if (card.color === COLORS.BLACK && card.number === 2) {
+    wasSpecialCard = true;
+    // Make the next player draw four cards
+
+    // Skip the next player
+    changeTurn(currentPlayerIndex, 2, state);
+    // Ask for the new color
+    
+  }
+  // Draw two -card
+  else if (card.number === 10) {
+    wasSpecialCard = true;
+    // Make the next player draw two cards
+
+    // Skip the next player
+    changeTurn(currentPlayerIndex, 2, state);
+  }
+  // Reverse direction -card
+  else if (card.number === 11) {
+    wasSpecialCard = true;
+    // Reverse the direction
+    if (state.direction === "Normal") {
+      state.direction = "Reversed";
+    }
+    else {
+      state.direction = "Normal";
+    }
+    // Change the turn
+    changeTurn(currentPlayerIndex, 1, state);
+  }
+  // Skip player -card
+  else if (card.number === 12) {
+    wasSpecialCard = true;
+    // Skip the next player
+    changeTurn(currentPlayerIndex, 2, state);
+  }
+
+  return wasSpecialCard;
 }
 
 function drawCardForPlayer(clientID, state) {
@@ -322,6 +405,7 @@ function initGame(clientID, playerName) {
     deck: shuffledDeck,
     discardPile: [],
     currentPlayer: 1,
+    direction: "Normal",
     unoCalled: false,
     players: [
       {
