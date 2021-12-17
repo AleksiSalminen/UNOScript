@@ -56,8 +56,8 @@ function updatePlayersStats() {
   
 }
 
-function chooseCard (cell) {
-  alert(cell.innerHTML);
+function chooseCard (card) {
+  socket.emit('addCard', card.innerHTML);
 }
 
 function updateCardsListeners () {

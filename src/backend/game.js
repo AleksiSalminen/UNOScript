@@ -102,6 +102,28 @@ module.exports = {
       }
     }
   },
+
+  /**
+   * 
+   * @param {*} client 
+   * @param {*} card 
+   */
+  addCard (client, params) {
+    const card = JSON.parse(params);
+    const roomName = clientRooms[client.id];
+    
+    if (checkIfUserTurn(client.id, state[roomName])) {
+      if (checkIfValidCard(card, state[roomName])) {
+        console.log("Valid card");
+      }
+      else {
+        console.log("Invalid card");
+      }
+    }
+    else {
+      console.log("Not user's turn");
+    }
+  }
 };
 
 
@@ -126,6 +148,42 @@ function divideCards (state) {
       player.cards.push(deck.pop());
     }
   }
+}
+
+function checkIfUserTurn (clientID, state) {
+  let userTurn = false;
+  
+  let clientPlayerNum = -1;
+  for (let plI = 0;plI < state.players.length;plI++) {
+    const player = state.players[plI];
+    if (player.client === clientID) {
+      clientPlayerNum = player.number;
+      plI = state.players.length;
+    }
+  }
+
+  if (clientPlayerNum === state.currentPlayer) {
+    userTurn = true;
+  }
+
+  return userTurn;
+}
+
+function checkIfValidCard(card, state) {
+  let isValidCard = false;
+
+  const discardTop = state.discardPile[state.discardPile.length-1];
+  if (card.color === COLORS.BLACK) {
+    isValidCard = true;
+  }
+  else if (card.color === discardTop.color) {
+    isValidCard = true;
+  }
+  else if (card.number === discardTop.number) {
+    isValidCard = true;
+  }
+
+  return isValidCard;
 }
 
 function shuffleDeck(deck) {
