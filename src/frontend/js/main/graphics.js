@@ -58,8 +58,8 @@ function updateGameInfoView(player, players, gameCode, deckSize, discardTop, cur
   let infoTable = document.getElementById("playerInfoTable");
   let infoTableItems = `
     <thead>
-      <th scope="col">Nimi</th>
-      <th scope="col">Kortteja</th>
+      <th scope="col" class="col-4">Nimi</th>
+      <th scope="col" class="col-2">Kortteja</th>
     </thead>
   `;
 

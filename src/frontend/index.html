@@ -21,43 +21,50 @@
 	<div id="mainScreen">
 		<div id="initialScreen" class="container bg-light py-3 my-3">
 			<div>
-				<h1>UNO</h1>
-				</br>
-				<div>
-					<input type="text" placeholder="Nimesi" id="name" />
+				<div class="text-center">
+					<h1>UNO</h1>
+					</br>
+					<div>
+						<input type="text" placeholder="Nimesi" id="name" />
+					</div>
 				</div>
 				</br></br>
-				<button type="submit" id="newGameButton" class="btn btn-primary">
-					Luo uusi moninpeli
-				</button>
-				</br></br>
-				<div>TAI</div>
-				</br>
-				<div>
-					<input type="text" placeholder="Anna pelikoodi" id="gameCodeInput" />
+				<div class="d-flex justify-content-center">
+					<button type="submit" id="newGameButton" class="btn btn-primary">
+						Luo uusi moninpeli
+					</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div>TAI</div>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div>
+						<input type="text" placeholder="Anna pelikoodi" id="gameCodeInput" />
+						</br></br>
+						<button type="submit" id="joinGameButton" class="btn btn-primary">
+							Liity peliin
+						</button>
+					</div>
 				</div>
-				</br>
-				<button type="submit" id="joinGameButton" class="btn btn-primary">
-					Liity peliin
-				</button>
 			</div>
 		</div>
 	</div>
 
 	<!-- Game and players lobby screen -->
 	<div id="gameLobbyScreen" style="display:none" class="container bg-light py-3 my-3">
-		<h1>UNO</h1></br>
-		<p id="gameCodeText" class="lead"></p>
-		<p id="playersAmountText" class="lead"></p>
-		<table id="gameInfoTable" class="table border"></table>
-		<p id="playersNumWarningText" style="display:none">
-			Pelin aloittamiseen tarvitaan vähintään kaksi pelaajaa
-		</p>
-		<button id="startGameButton" type="button" class="btn btn-outline-primary">Aloita peli</button>
+		<div class="text-center justify-content-center">
+			<h1>UNO</h1></br>
+			<p id="gameCodeText" class="lead"></p>
+			<p id="playersAmountText" class="lead"></p>
+			<table id="gameInfoTable" class="table border game-info"></table>
+			</br>
+			<p id="playersNumWarningText" style="display:none">
+				Pelin aloittamiseen tarvitaan vähintään kaksi pelaajaa
+			</p>
+			<button id="startGameButton" type="button" class="btn btn-outline-primary">Aloita peli</button>
+		</div>
 	</div>
 
 	<!-- The game screen -->
-	<div id="gameScreen" style="display:none" class="container bg-light py-3 my-3">
+	<div id="gameScreen" style="display:none" class="container bg-light my-1">
 		<div class="row justify-content-center">
 			<!-- The game info view -->
 			<div id="gameInfoView" class="col-3">

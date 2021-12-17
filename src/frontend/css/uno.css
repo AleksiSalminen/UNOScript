@@ -3,18 +3,20 @@ table.cards td:hover {
     cursor: pointer;
 }
 
-.table-responsive.cards {
-    max-height:70%;
+.table-responsive.game-info {
+    max-height:50%;
 }
 
 .table-responsive.players {
-    max-height:30%;
+    max-height:25%;
 }
 
 .discardTopImg {
     max-height:25%;
 }
 
-.game-info-view {
-    max-height:80%;
+.game-info {
+    max-width:70%;
+    max-height:70%;
+    margin: 0 auto;
 }
