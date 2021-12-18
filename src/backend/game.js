@@ -1,8 +1,7 @@
 const { io } = require('./handler');
 const RULES = require('./rules');
-const DECK = RULES.DECK;
 const COLORS = RULES.COLORS;
-const state = {};
+let state = {};
 const clientRooms = {};
 
 
@@ -77,14 +76,21 @@ module.exports = {
     const roomName = clientRooms[client.id];
     state[roomName].status = "Playing";
     divideCards(state[roomName]);
-    let card = {number:14}
-    while (card.number === 10 || card.number === 11
-      || card.number === 12 || card.number === 13 || card.number === 14) {
-        card = state[roomName].deck.pop();
-        state[roomName].discardPile.push(card);
+    if (state[roomName].deck.length > 0) {
+      if (!checkIfOnlySpecials(state[roomName].deck)) {
+        let card = {number:14}
+        while (card.number === 10 || card.number === 11
+          || card.number === 12 || card.number === 13 || card.number === 14) {
+            card = state[roomName].deck.pop();
+            state[roomName].discardPile.push(card);
+        }
+      }
+      else {
+        state[roomName].discardPile.push(state[roomName].deck.pop());
+      }
+      
+      emitGameState(state[roomName]);
     }
-    
-    emitGameState(state[roomName]);
   },
 
   /**
@@ -204,6 +210,17 @@ function checkIfUserTurn (clientID, state) {
   }
 
   return userTurn;
+}
+
+function checkIfOnlySpecials (deck) {
+  let card;
+  for (let i = 0;i < deck.length;i++) {
+    card = deck[i];
+    if (card.number < 10) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function checkIfValidCard(card, state) {
@@ -464,8 +481,47 @@ function censorGamestate (plNumber, gameState) {
   return censoredState;
 }
 
+function createDeck(deckSettings) {
+  let deck = [];
+  let color;
+
+  for (let colorI = 0;colorI < Object.keys(COLORS).length;colorI++) {
+    color = COLORS[Object.keys(COLORS)[colorI]];
+    if (color !== COLORS.BLACK) {
+      // All cards for one color
+      for (let number = 0;number < 13;number++) {
+        // How many of the same number
+        for (let copy = 1; copy <= deckSettings[number].count;copy++) {
+          deck.push({
+            color: color,
+            number: number
+          });
+        }
+      }
+    }
+    else {
+      // Color Jokers
+      for (let joker1I = 0;joker1I < deckSettings[13].count;joker1I++) {
+        deck.push({
+          color: color,
+          number: 13
+        });
+      }
+      // +4 Jokers
+      for (let joker2I = 0;joker2I < deckSettings[14].count;joker2I++) {
+        deck.push({
+          color: color,
+          number: 14
+        });
+      }
+    }
+  }
+
+  return deck;
+}
+
 function initGame(clientID, params) {
-  const gameDeck = JSON.parse(JSON.stringify(DECK));
+  const gameDeck = createDeck(params.deckSettings);
   const shuffledDeck = shuffleDeck(gameDeck);
   
   return {

@@ -112,6 +112,24 @@ function updateCardsListeners () {
   }
 }
 
+function getDeckSettings () {
+  let deckSettings = [];
+  const diffCardsNum = 15;
+  let idString = "";
+  let cardCount = 0;
+
+  for (let i = 0;i < diffCardsNum;i++) {
+    idString = "card" + i + "Quantity";
+    cardCount = document.getElementById(idString).value;
+    deckSettings.push({
+      number: i,
+      count: cardCount
+    });
+  }
+
+  return deckSettings;
+}
+
 /**
 * Updates the game
 * @param {*} playerNumber 
@@ -139,11 +157,14 @@ function newGame() {
   const startCardsNum = document.getElementById("startCardsQuantity").value;
   const playersMaxNum = document.getElementById("playersMaxQuantity").value;
   const drawCardSkip = document.getElementById("drawCardSkip").checked;
+  const deckSettings = getDeckSettings();
+  
   socket.emit('newGame', { 
     name: name,
     startCardsNum: startCardsNum,
     playersMaxNum: playersMaxNum,
-    drawCardSkip: drawCardSkip
+    drawCardSkip: drawCardSkip,
+    deckSettings: deckSettings
   });
 }
 document.getElementById('newGameButton').addEventListener('click', newGame);

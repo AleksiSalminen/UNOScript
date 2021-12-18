@@ -20,7 +20,7 @@ const COLORS = {
  * 4 "Color Joker"-cards
  * 4 "+4 Joker"-cards
  */
-const DECK = [
+const STANDARD_DECK = [
 
     // BLUE DECK
 
@@ -110,6 +110,6 @@ const DECK = [
 
 
 module.exports = {
-    DECK,
+    STANDARD_DECK,
     COLORS
 };
