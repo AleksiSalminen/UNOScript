@@ -14,6 +14,7 @@ let deckSize = 0;
 let playedCard = {};
 let discardTop;
 let currentPlayer;
+let playersMaxNum = 10;
 
 /* Establish socket connection with the server backend */
 const socket = io(serverAddress);
@@ -124,8 +125,9 @@ function updateGame(playerNumber, gameState) {
   players = gameState.players;
   currentPlayer = gameState.currentPlayer;
   winner = gameState.winner;
+  playersMaxNum = gameState.playersMaxNum;
   player = findPlayer(playerNumber, players);
-  GRAPHICS.updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer, winner);
+  GRAPHICS.updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer, winner, playersMaxNum);
   updateCardsListeners();
 }
 
@@ -135,9 +137,11 @@ function updateGame(playerNumber, gameState) {
 function newGame() {
   const name = document.getElementById("name").value;
   const startCardsNum = document.getElementById("startCardsQuantity").value;
+  const playersMaxNum = document.getElementById("playersMaxQuantity").value;
   socket.emit('newGame', { 
     name: name,
-    startCardsNum: startCardsNum
+    startCardsNum: startCardsNum,
+    playersMaxNum: playersMaxNum
   });
 }
 document.getElementById('newGameButton').addEventListener('click', newGame);

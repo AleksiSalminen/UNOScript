@@ -1,5 +1,5 @@
 
-function updateLobby(player, players, gameCode) {
+function updateLobby(player, players, gameCode, playersMaxNum) {
 
   if (gameCode) {
     let gameCodeTextElem = document.getElementById("gameCodeText");
@@ -7,7 +7,7 @@ function updateLobby(player, players, gameCode) {
   }
 
   let playersAmountTextElem = document.getElementById("playersAmountText");
-  playersAmountTextElem.innerHTML = "Pelaajia: " + players.length + "/10"
+  playersAmountTextElem.innerHTML = "Pelaajia: " + players.length + "/" + playersMaxNum;
 
   let infoTable = document.getElementById("gameInfoTable");
   let infoTableItems = `
@@ -151,7 +151,7 @@ function updateGameEndView(winner, players) {
   winnerTextElem.innerHTML = "Voittaja on: " + winner;
 }
 
-function updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer, winner) {
+function updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer, winner, playersMaxNum) {
   let gameLobbyElem = document.getElementById("gameLobbyScreen");
   let gameElem = document.getElementById("gameScreen");
   let gameEndElem = document.getElementById("gameEndScreen");
@@ -164,7 +164,7 @@ function updateGraphics(player, players, gameCode, status, deckSize, discardTop,
     gameLobbyElem.style.display = "block";
     gameElem.style.display = "none";
     gameEndElem.style.display = "none";
-    updateLobby(player, players, gameCode)
+    updateLobby(player, players, gameCode, playersMaxNum)
   }
   else if (status === "Playing") {
     gameLobbyElem.style.display = "none";

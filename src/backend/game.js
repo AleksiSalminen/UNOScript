@@ -4,7 +4,6 @@ const DECK = RULES.DECK;
 const COLORS = RULES.COLORS;
 const state = {};
 const clientRooms = {};
-const maxNumberOfPlayers = 10;
 
 
 module.exports = {
@@ -46,7 +45,7 @@ module.exports = {
     if (numClients === 0) {
       client.emit("unknownCode");
       return;
-    } else if (numClients > maxNumberOfPlayers - 1) {
+    } else if (numClients > state[roomName].playersMaxNum - 1) {
       client.emit("tooManyPlayers");
       return;
     } else if (state[roomName].status === "Playing") {
@@ -432,6 +431,7 @@ function censorGamestate (plNumber, gameState) {
     deckSize: gameState.deck.length,
     discardTop: gameState.discardPile[gameState.discardPile.length-1],
     currentPlayer: gameState.currentPlayer,
+    playersMaxNum: gameState.playersMaxNum,
     players: []
   };
 
@@ -469,6 +469,7 @@ function initGame(clientID, params) {
     direction: "Normal",
     unoCalled: false,
     startCardsNum: params.startCardsNum,
+    playersMaxNum: params.playersMaxNum,
     players: [
       {
         client: clientID,
