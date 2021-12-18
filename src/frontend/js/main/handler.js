@@ -138,10 +138,12 @@ function newGame() {
   const name = document.getElementById("name").value;
   const startCardsNum = document.getElementById("startCardsQuantity").value;
   const playersMaxNum = document.getElementById("playersMaxQuantity").value;
+  const drawCardSkip = document.getElementById("drawCardSkip").checked;
   socket.emit('newGame', { 
     name: name,
     startCardsNum: startCardsNum,
-    playersMaxNum: playersMaxNum
+    playersMaxNum: playersMaxNum,
+    drawCardSkip: drawCardSkip
   });
 }
 document.getElementById('newGameButton').addEventListener('click', newGame);

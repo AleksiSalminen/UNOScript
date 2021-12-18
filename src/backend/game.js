@@ -399,6 +399,11 @@ function drawCardForPlayer(clientID, state) {
     state.deck = shuffleDeck(JSON.parse(JSON.stringify(state.discardPile)));
     state.discardPile = [discardTop];
   }
+
+  // If draw card skip is enabled
+  if (state.drawCardSkip) {
+    changeTurn(currentPlayerIndex, 1, state);
+  }
 }
 
 function resetJokerCards(state) {
@@ -468,6 +473,7 @@ function initGame(clientID, params) {
     currentPlayer: 1,
     direction: "Normal",
     unoCalled: false,
+    drawCardSkip: params.drawCardSkip,
     startCardsNum: params.startCardsNum,
     playersMaxNum: params.playersMaxNum,
     players: [
