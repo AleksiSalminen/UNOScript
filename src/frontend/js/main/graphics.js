@@ -146,9 +146,15 @@ function updateGameView(player, players, gameCode, deckSize, discardTop, current
   updateCardsTableView(player);
 }
 
-function updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer) {
+function updateGameEndView(winner, players) {
+  let winnerTextElem = document.getElementById("winnerText");
+  winnerTextElem.innerHTML = "Voittaja on: " + winner;
+}
+
+function updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer, winner) {
   let gameLobbyElem = document.getElementById("gameLobbyScreen");
   let gameElem = document.getElementById("gameScreen");
+  let gameEndElem = document.getElementById("gameEndScreen");
 
   if (document.getElementById("mainScreen").style.display !== "none") {
     document.getElementById("mainScreen").style.display = "none";
@@ -157,12 +163,20 @@ function updateGraphics(player, players, gameCode, status, deckSize, discardTop,
   if (status === "Lobby") {
     gameLobbyElem.style.display = "block";
     gameElem.style.display = "none";
+    gameEndElem.style.display = "none";
     updateLobby(player, players, gameCode)
   }
   else if (status === "Playing") {
     gameLobbyElem.style.display = "none";
     gameElem.style.display = "block";
+    gameEndElem.style.display = "none";
     updateGameView(player, players, gameCode, deckSize, discardTop, currentPlayer);
+  }
+  else if (status === "GameEnd") {
+    gameLobbyElem.style.display = "none";
+    gameElem.style.display = "none";
+    gameEndElem.style.display = "block";
+    updateGameEndView(winner, players);
   }
 }
 

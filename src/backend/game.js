@@ -283,6 +283,11 @@ function makeAPlay(clientID, card, state) {
   if (!wasSpecialCard) {
     changeTurn(currentPlayerIndex, 1, state);
   }
+
+  // Check if the game ends
+  if (currentPlayer.cards.length === 0) {
+    handleGameEnd(currentPlayer, state);
+  }
 }
 
 function changeTurn (currentPlayerIndex, rounds, state) {
@@ -310,6 +315,11 @@ function changeTurn (currentPlayerIndex, rounds, state) {
   }
 
   return currentPlayerIndex;
+}
+
+function handleGameEnd(currentPlayer, state) {
+  state.status = "GameEnd";
+  state.winner = currentPlayer.name;
 }
 
 function handleSpecialCards(currentPlayerIndex, card, state) {
@@ -408,6 +418,7 @@ function shuffleDeck(deck) {
 function censorGamestate (plNumber, gameState) {
   let censoredState = {
     status: gameState.status,
+    winner: gameState.winner,
     deckSize: gameState.deck.length,
     discardTop: gameState.discardPile[gameState.discardPile.length-1],
     currentPlayer: gameState.currentPlayer,

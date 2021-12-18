@@ -9,6 +9,7 @@ let playerNumber;
 let players;
 let gameCode;
 let status = "";
+let winner;
 let deckSize = 0;
 let playedCard = {};
 let discardTop;
@@ -122,8 +123,9 @@ function updateGame(playerNumber, gameState) {
   discardTop = gameState.discardTop;
   players = gameState.players;
   currentPlayer = gameState.currentPlayer;
+  winner = gameState.winner;
   player = findPlayer(playerNumber, players);
-  GRAPHICS.updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer);
+  GRAPHICS.updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer, winner);
   updateCardsListeners();
 }
 
