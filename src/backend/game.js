@@ -383,6 +383,13 @@ function drawCardForPlayer(clientID, state) {
   }
 
   currentPlayer.cards.push(state.deck.pop());
+
+  // If deck is empty
+  if (state.deck.length === 0) {
+    const discardTop = state.discardPile.pop();
+    state.deck = shuffleDeck(JSON.parse(JSON.stringify(state.discardPile)));
+    state.discardPile = [discardTop];
+  }
 }
 
 function shuffleDeck(deck) {
