@@ -10,6 +10,7 @@ let players;
 let gameCode;
 let status = "";
 let deckSize = 0;
+let playedCard = {};
 let discardTop;
 let currentPlayer;
 
@@ -62,9 +63,30 @@ function getImageValue (cell) {
 function chooseCard (cell) {
   if (cell.innerHTML.length > 0) {
     const card = getImageValue(cell.innerHTML);
-    socket.emit('addCard', JSON.stringify(card));
+    playedCard = card;
+    if (card.color !== "Black") {
+      socket.emit('addCard', JSON.stringify(card));
+    }
+    else {
+      $("#colorModal").modal("show");
+    }
   }
 }
+
+$('#colorModal').on('hidden.bs.modal', function (e) {
+  // Get the chosen radio value
+  const color = $('input[name=color]:checked').val();
+  if (color) {
+    playedCard.color = color;
+    socket.emit('addCard', JSON.stringify(playedCard));
+  }
+})
+
+function closeModal () {
+  $('#colorModal').modal('hide');
+}
+document.getElementById("saveModalButton").addEventListener('click', closeModal)
+document.getElementById("closeModalButton").addEventListener('click', closeModal)
 
 function drawCard () {
   socket.emit('drawCard', {});

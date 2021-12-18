@@ -208,7 +208,7 @@ function checkIfValidCard(card, state) {
   let isValidCard = false;
 
   const discardTop = state.discardPile[state.discardPile.length-1];
-  if (card.color === COLORS.BLACK) {
+  if (card.number === 13 || card.number === 14) {
     isValidCard = true;
   }
   else if (card.color === discardTop.color) {
@@ -241,7 +241,20 @@ function makeAPlay(clientID, card, state) {
 
   for (let cardIndex = 0;cardIndex < currentPlayer.cards.length;cardIndex++) {
     let curCard = currentPlayer.cards[cardIndex];
-    if (curCard.color == card.color && curCard.number == card.number) {
+    // Check for Color Joker -card
+    if (card.number === 13 && curCard.number === card.number) {
+      // Remove the played card
+      currentPlayer.cards.splice(cardIndex, 1);
+      cardIndex = currentPlayer.cards.length;
+    }
+    // Check for +4 Joker -card
+    else if (card.number === 14 && curCard.number === card.number) {
+      // Remove the played card
+      currentPlayer.cards.splice(cardIndex, 1);
+      cardIndex = currentPlayer.cards.length;
+    }
+    // Check for every other type of card
+    else if (curCard.color == card.color && curCard.number == card.number) {
       // Remove the played card
       currentPlayer.cards.splice(cardIndex, 1);
       cardIndex = currentPlayer.cards.length;
@@ -301,19 +314,15 @@ function handleSpecialCards(currentPlayerIndex, card, state) {
   // Color Joker -card
   if (card.number === 13) {
     wasSpecialCard = true;
-    // Ask for the new color
-
     // Change turn
     changeTurn(currentPlayerIndex, 1, state);
   }
   // +4 Joker -card
   else if (card.number === 14) {
     wasSpecialCard = true;
-    // Ask for the new color
-    
     // Change turn to the next player
     currentPlayerIndex = changeTurn(currentPlayerIndex, 1, state);
-    // Make the next player draw two cards
+    // Make the next player draw four cards
     let currentPlayerClientID = state.players[currentPlayerIndex].client;
     drawCardForPlayer(currentPlayerClientID, state);
     drawCardForPlayer(currentPlayerClientID, state);

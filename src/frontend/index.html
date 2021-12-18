@@ -62,7 +62,8 @@
 			</p>
 			<button id="startGameButton" type="button" class="btn btn-outline-primary">Aloita peli</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<button id="refreshButton" type="button" class="btn btn-secondary" onClick="window.location.reload();">Takaisin</button>
+			<button id="refreshButton" type="button" class="btn btn-secondary"
+				onClick="window.location.reload();">Takaisin</button>
 		</div>
 	</div>
 
@@ -91,7 +92,7 @@
 						UNO
 					</button>
 				</h5>
-				
+
 				<div class="table-responsive cards">
 					<table id="cardsTable" class="table border cards"></table>
 				</div>
@@ -99,8 +100,37 @@
 		</div>
 	</div>
 
+	<!-- Color chooser modal -->
+	<div class="modal" id="colorModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Valitse väri</h5>
+					<button type="button" class="close" id="closeModalButton" data-dismiss="modal" aria-label="Sulje">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<input type="radio" id="Blue" name="color" value="Blue">
+					<label for="Blue">Sininen</label><br>
+					<input type="radio" id="Red" name="color" value="Red">
+					<label for="Red">Punainen</label><br>
+					<input type="radio" id="Green" name="color" value="Green">
+					<label for="Green">Vihreä</label><br>
+					<input type="radio" id="Yellow" name="color" value="Yellow">
+					<label for="Yellow">Keltainen</label><br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="saveModalButton" class="btn btn-primary">Tallenna</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<script type="text/javascript" src="./js/helpers/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="./js/helpers/jquery.min.js"></script>
+	
 	<script type="module" src="./js/main/handler.js"></script>
 	<script type="module" src="./js/main/graphics.js"></script>
 	<script type="module" src="./js/main/audio.js"></script>
