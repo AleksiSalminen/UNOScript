@@ -397,8 +397,19 @@ function drawCardForPlayer(clientID, state) {
   // If deck is empty
   if (state.deck.length === 0) {
     const discardTop = state.discardPile.pop();
+    resetJokerCards(state);
     state.deck = shuffleDeck(JSON.parse(JSON.stringify(state.discardPile)));
     state.discardPile = [discardTop];
+  }
+}
+
+function resetJokerCards(state) {
+  const discardPile = state.discardPile;
+  for (let i = 0;i < discardPile.length;i++) {
+    const card = discardPile[i];
+    if (card.number === 13 || card.number === 14) {
+      card.color = COLORS.BLACK;
+    }
   }
 }
 
