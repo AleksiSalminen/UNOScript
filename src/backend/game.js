@@ -4,7 +4,6 @@ const DECK = RULES.DECK;
 const COLORS = RULES.COLORS;
 const state = {};
 const clientRooms = {};
-const numOfStartCards = 7;
 const maxNumberOfPlayers = 10;
 
 
@@ -17,7 +16,7 @@ module.exports = {
     let roomName = makeid(5);
     clientRooms[client.id] = roomName;
 
-    state[roomName] = initGame(client.id, params.name);
+    state[roomName] = initGame(client.id, params);
 
     client.join(roomName);
     client.number = 1;
@@ -180,7 +179,7 @@ function makeid(length) {
 function divideCards (state) {
   let deck = state.deck;
   // Go through the rounds of dividing the cards
-  for (let round = 1;round <= numOfStartCards;round++) {
+  for (let round = 1;round <= state.startCardsNum;round++) {
     // Give one card to each player
     for (let plI = 0;plI < state.players.length;plI++) {
       let player = state.players[plI];
@@ -458,7 +457,7 @@ function censorGamestate (plNumber, gameState) {
   return censoredState;
 }
 
-function initGame(clientID, playerName) {
+function initGame(clientID, params) {
   const gameDeck = JSON.parse(JSON.stringify(DECK));
   const shuffledDeck = shuffleDeck(gameDeck);
   
@@ -469,12 +468,12 @@ function initGame(clientID, playerName) {
     currentPlayer: 1,
     direction: "Normal",
     unoCalled: false,
-    colorSelection: false,
+    startCardsNum: params.startCardsNum,
     players: [
       {
         client: clientID,
         number: 1,
-        name: playerName,
+        name: params.name,
         cards: []
       }
     ]

@@ -134,7 +134,11 @@ function updateGame(playerNumber, gameState) {
  */
 function newGame() {
   const name = document.getElementById("name").value;
-  socket.emit('newGame', { name: name });
+  const startCardsNum = document.getElementById("startCardsQuantity").value;
+  socket.emit('newGame', { 
+    name: name,
+    startCardsNum: startCardsNum
+  });
 }
 document.getElementById('newGameButton').addEventListener('click', newGame);
 
