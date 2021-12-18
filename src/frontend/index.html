@@ -30,9 +30,15 @@
 				</div>
 				</br></br>
 				<div class="d-flex justify-content-center">
-					<button type="submit" id="newGameButton" class="btn btn-primary">
-						Luo uusi moninpeli
-					</button>
+					<div>
+						<button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
+							Peliasetukset
+						</button>
+						</br></br>
+						<button type="submit" id="newGameButton" class="btn btn-primary">
+							Luo uusi moninpeli
+						</button>
+					</div>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div>TAI</div>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -42,6 +48,12 @@
 						<button type="submit" id="joinGameButton" class="btn btn-primary">
 							Liity peliin
 						</button>
+					</div>
+				</div>
+				</br>
+				<div class="collapse" id="collapseSettings">
+					<div class="card card-body">
+						
 					</div>
 				</div>
 			</div>
@@ -144,7 +156,7 @@
 
 	<script type="text/javascript" src="./js/helpers/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="./js/helpers/jquery.min.js"></script>
-	
+
 	<script type="module" src="./js/main/handler.js"></script>
 	<script type="module" src="./js/main/graphics.js"></script>
 	<script type="module" src="./js/main/audio.js"></script>
