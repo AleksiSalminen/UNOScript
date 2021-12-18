@@ -390,7 +390,9 @@ function drawCardForPlayer(clientID, state) {
     }
   }
 
-  currentPlayer.cards.push(state.deck.pop());
+  // Draw card for player
+  const newCard = state.deck.pop();
+  currentPlayer.cards.push(newCard);
 
   // If deck is empty
   if (state.deck.length === 0) {
@@ -400,8 +402,8 @@ function drawCardForPlayer(clientID, state) {
     state.discardPile = [discardTop];
   }
 
-  // If draw card skip is enabled
-  if (state.drawCardSkip) {
+  // If draw card skip is enabled and new card is invalid
+  if (state.drawCardSkip && !checkIfValidCard(newCard, state)) {
     changeTurn(currentPlayerIndex, 1, state);
   }
 }
