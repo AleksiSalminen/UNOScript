@@ -79,9 +79,13 @@ module.exports = {
     const roomName = clientRooms[client.id];
     state[roomName].status = "Playing";
     divideCards(state[roomName]);
-    state[roomName].discardPile.push(
-      state[roomName].deck.pop()
-    );
+    let card = {number:14}
+    while (card.number === 10 || card.number === 11
+      || card.number === 12 || card.number === 13 || card.number === 14) {
+        card = state[roomName].deck.pop();
+        state[roomName].discardPile.push(card);
+    }
+    
     emitGameState(state[roomName]);
   },
 
