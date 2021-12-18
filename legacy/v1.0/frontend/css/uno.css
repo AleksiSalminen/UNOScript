@@ -1,0 +1,26 @@
+table.cards td:hover {
+    background-color: rgba(0,0,0,.075);
+    cursor: pointer;
+}
+
+.table-responsive.game-info {
+    max-height:50%;
+}
+
+.table-responsive.players {
+    max-height:25%;
+}
+
+.table-responsive.cards {
+    max-height:70%;
+}
+
+.discardTopImg {
+    max-height:25%;
+}
+
+.game-info {
+    max-width:70%;
+    max-height:70%;
+    margin: 0 auto;
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="fi">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>UNO</title>
+
+	<!-- Load the stylesheets -->
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/uno.css">
+
+	<!-- Load the helper files -->
+	<script type="text/javascript" src="./js/helpers/socket.io.js"></script>
+</head>
+
+<body id="body">
+
+	<!-- Main menu screen -->
+	<div id="mainScreen">
+		<div id="initialScreen" class="container bg-light py-3 my-3">
+			<div>
+				<div class="text-center">
+					<img src="./images/Logo.png" alt="Logo" height="80px">
+					</br></br>
+					<div>
+						<input type="text" placeholder="Nimesi" id="name" />
+					</div>
+				</div>
+				</br></br>
+				<div class="d-flex justify-content-center">
+					<button type="submit" id="newGameButton" class="btn btn-primary">
+						Luo uusi moninpeli
+					</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div>TAI</div>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div>
+						<input type="text" placeholder="Anna pelikoodi" id="gameCodeInput" />
+						</br></br>
+						<button type="submit" id="joinGameButton" class="btn btn-primary">
+							Liity peliin
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Game and players lobby screen -->
+	<div id="gameLobbyScreen" style="display:none" class="container bg-light py-3 my-3">
+		<div class="text-center justify-content-center">
+			<img src="./images/Logo.png" alt="Logo" height="80px">
+			</br></br>
+			<p id="gameCodeText" class="lead"></p>
+			<p id="playersAmountText" class="lead"></p>
+			<table id="gameInfoTable" class="table border game-info"></table>
+			</br>
+			<p id="playersNumWarningText" style="display:none">
+				Pelin aloittamiseen tarvitaan vähintään kaksi pelaajaa
+			</p>
+			<button id="startGameButton" type="button" class="btn btn-outline-primary">Aloita peli</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button id="refreshButton" type="button" class="btn btn-secondary"
+				onClick="window.location.reload();">Takaisin</button>
+		</div>
+	</div>
+
+	<!-- The game screen -->
+	<div id="gameScreen" style="display:none" class="container bg-light my-1">
+		<div class="row justify-content-center">
+			<!-- The game info view -->
+			<div id="gameInfoView" class="col-3">
+				<p id="gameCodeText2" class="lead"></p>
+				<div class="table-responsive players">
+					<table id="playerInfoTable" class="table border table-sm"></table>
+				</div>
+				<p id="deckText" class="lead"></p>
+				<button type="submit" id="drawCardButton" class="btn btn-outline-primary">
+					Nosta kortti
+				</button>
+				</br></br>
+				<img id="discardTop" class="discardTopImg"></img>
+			</div>
+			<!-- The cards view -->
+			<div id="cardsView" class="col-8">
+				<h5>
+					KORTIT
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="submit" id="unoButton" class="btn btn-outline-primary">
+						UNO
+					</button>
+				</h5>
+
+				<div class="table-responsive cards">
+					<table id="cardsTable" class="table border cards"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- The game end screen -->
+	<div id="gameEndScreen" style="display:none" class="container bg-light py-3 my-3">
+		<div class="text-center justify-content-center">
+			<img src="./images/Logo.png" alt="Logo" height="80px">
+			</br></br>
+			<h4>Peli loppui!</h4>
+			</br></br>
+			<h6 id="winnerText"></h6>
+			</br></br>
+			<button id="refreshButton" type="button" class="btn btn-primary"
+				onClick="window.location.reload();">Etusivulle</button>
+		</div>
+	</div>
+
+	<!-- Color chooser modal -->
+	<div class="modal" id="colorModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Valitse väri</h5>
+					<button type="button" class="close" id="closeModalButton" data-dismiss="modal" aria-label="Sulje">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<input type="radio" id="Blue" name="color" value="Blue">
+					<label for="Blue">Sininen</label><br>
+					<input type="radio" id="Red" name="color" value="Red">
+					<label for="Red">Punainen</label><br>
+					<input type="radio" id="Green" name="color" value="Green">
+					<label for="Green">Vihreä</label><br>
+					<input type="radio" id="Yellow" name="color" value="Yellow">
+					<label for="Yellow">Keltainen</label><br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="saveModalButton" class="btn btn-primary">Tallenna</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script type="text/javascript" src="./js/helpers/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="./js/helpers/jquery.min.js"></script>
+	
+	<script type="module" src="./js/main/handler.js"></script>
+	<script type="module" src="./js/main/graphics.js"></script>
+	<script type="module" src="./js/main/audio.js"></script>
+	<script type="module" src="./js/main/keyboard.js"></script>
+
+</body>
+
+</html>
