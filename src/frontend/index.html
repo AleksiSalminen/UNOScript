@@ -31,7 +31,8 @@
 				</br></br>
 				<div class="d-flex justify-content-center">
 					<div>
-						<button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
+						<button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse"
+							data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
 							Peliasetukset
 						</button>
 						</br></br>
@@ -52,19 +53,123 @@
 				</div>
 				</br>
 				<div class="collapse" id="collapseSettings">
-					<div class="card card-body">
-						<div class="col-xs-2">
-							<label for="startCardsQuantity">Aloituskorttien määrä:</label>
-							<input type="number" id="startCardsQuantity" name="quantity" min="1" max="50" value="7">
-						
-							<label for="playersMaxQuantity">Pelaajien maksimimäärä:</label>
-							<input type="number" id="playersMaxQuantity" name="quantity" min="2" max="50" value="10">
-							
-							<input type="checkbox" id="drawCardSkip" name="skip" checked>
-							<label for="drawCardSkip">Kortin nostaminen päättää vuoron</label>
-							
+					<div class="container">
+						<div class="card card-body row">
+							<div class="row">
+								<div class="col-8 border">
+									</br>
+									<h6>Pakan asetukset</h6>
+									</br>
+									<div class="container vertical-scrollable">
+										<div class="row">
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/0.png" class="settings-card">
+												X
+												<input type="number" id="card0Quantity" name="quantity" min="0" max="99"
+													value="1">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/1.png" class="settings-card">
+												X
+												<input type="number" id="card1Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/2.png" class="settings-card">
+												X
+												<input type="number" id="card2Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/3.png" class="settings-card">
+												X
+												<input type="number" id="card3Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/4.png" class="settings-card">
+												X
+												<input type="number" id="card4Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/5.png" class="settings-card">
+												X
+												<input type="number" id="card5Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/6.png" class="settings-card">
+												X
+												<input type="number" id="card6Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/7.png" class="settings-card">
+												X
+												<input type="number" id="card7Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/8.png" class="settings-card">
+												X
+												<input type="number" id="card8Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/9.png" class="settings-card">
+												X
+												<input type="number" id="card9Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/10.png" class="settings-card">
+												X
+												<input type="number" id="card10Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/11.png" class="settings-card">
+												X
+												<input type="number" id="card11Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/12.png" class="settings-card">
+												X
+												<input type="number" id="card12Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Black/13.png" class="settings-card">
+												X
+												<input type="number" id="card13Quantity" name="quantity" min="0" max="99"
+													value="4">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Black/14.png" class="settings-card">
+												X
+												<input type="number" id="card14Quantity" name="quantity" min="0" max="99"
+													value="4">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-4 border text-end">
+									</br>
+									<label for="startCardsQuantity">Aloituskorttien määrä:</label>
+									<input type="number" id="startCardsQuantity" name="quantity" min="1" max="50"
+										value="7">
+									</br>
+									<label for="playersMaxQuantity">Pelaajien maksimimäärä:</label>
+									<input type="number" id="playersMaxQuantity" name="quantity" min="2" max="50"
+										value="10">
+									</br>
+									<label for="drawCardSkip">Kortin nostaminen päättää vuoron</label>
+									<input type="checkbox" id="drawCardSkip" name="skip" checked>
+								</div>
+							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>

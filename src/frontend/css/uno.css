@@ -24,3 +24,18 @@ table.cards td:hover {
     max-height:70%;
     margin: 0 auto;
 }
+
+.settings-card {
+    max-height:100%;
+}
+
+.settings-card-div {
+    max-height:5rem;
+    max-width:11rem;
+}
+
+.vertical-scrollable> .row {
+    height: 15rem;
+    width: 100%;
+    overflow-y: scroll; 
+}
