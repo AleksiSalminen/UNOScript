@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="fi">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>UNO</title>
+
+	<!-- Load the stylesheets -->
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/uno.css">
+
+	<!-- Load the helper files -->
+	<script type="text/javascript" src="./js/helpers/socket.io.js"></script>
+</head>
+
+<body id="body">
+
+	<!-- Main menu screen -->
+	<div id="mainScreen">
+		<div id="initialScreen" class="container bg-light py-3 my-3">
+			<div>
+				<div class="text-center">
+					<img src="./images/Logo.png" alt="Logo" height="80px">
+					</br></br>
+					<div>
+						<input type="text" placeholder="Nimesi" id="name" />
+					</div>
+				</div>
+				</br></br>
+				<div class="d-flex justify-content-center">
+					<div>
+						<button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse"
+							data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
+							Peliasetukset
+						</button>
+						</br></br>
+						<button type="submit" id="newGameButton" class="btn btn-primary">
+							Luo uusi moninpeli
+						</button>
+					</div>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div>TAI</div>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div>
+						<input type="text" placeholder="Anna pelikoodi" id="gameCodeInput" />
+						</br></br>
+						<button type="submit" id="joinGameButton" class="btn btn-primary">
+							Liity peliin
+						</button>
+					</div>
+				</div>
+				</br>
+				<div class="collapse" id="collapseSettings">
+					<div class="container">
+						<div class="card card-body row">
+							<div class="row">
+								<div class="col-8 border">
+									</br>
+									<h6>Pakan asetukset</h6>
+									</br>
+									<div class="container vertical-scrollable">
+										<div class="row">
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/0.png" class="settings-card">
+												X
+												<input type="number" id="card0Quantity" name="quantity" min="0" max="99"
+													value="1">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/1.png" class="settings-card">
+												X
+												<input type="number" id="card1Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/2.png" class="settings-card">
+												X
+												<input type="number" id="card2Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/3.png" class="settings-card">
+												X
+												<input type="number" id="card3Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/4.png" class="settings-card">
+												X
+												<input type="number" id="card4Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/5.png" class="settings-card">
+												X
+												<input type="number" id="card5Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/6.png" class="settings-card">
+												X
+												<input type="number" id="card6Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/7.png" class="settings-card">
+												X
+												<input type="number" id="card7Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/8.png" class="settings-card">
+												X
+												<input type="number" id="card8Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/9.png" class="settings-card">
+												X
+												<input type="number" id="card9Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/10.png" class="settings-card">
+												X
+												<input type="number" id="card10Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/11.png" class="settings-card">
+												X
+												<input type="number" id="card11Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Blue/12.png" class="settings-card">
+												X
+												<input type="number" id="card12Quantity" name="quantity" min="0" max="99"
+													value="2">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Black/13.png" class="settings-card">
+												X
+												<input type="number" id="card13Quantity" name="quantity" min="0" max="99"
+													value="4">
+											</div>
+											<div class="col border settings-card-div">
+												<img src="./images/cards/Black/14.png" class="settings-card">
+												X
+												<input type="number" id="card14Quantity" name="quantity" min="0" max="99"
+													value="4">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-4 border text-end">
+									</br>
+									<div>
+										<label for="newGameCodeInput">Pelikoodi:</label>
+										<input type="text" placeholder="(Satunnainen)" id="newGameCodeInput" />
+									</div>
+									
+									<label for="startCardsQuantity">Aloituskorttien määrä:</label>
+									<input type="number" id="startCardsQuantity" name="quantity" min="1" max="50"
+										value="7">
+									</br>
+									<label for="playersMaxQuantity">Pelaajien maksimimäärä:</label>
+									<input type="number" id="playersMaxQuantity" name="quantity" min="2" max="50"
+										value="10">
+									</br>
+									<label for="drawCardSkip">Kortin nostaminen päättää vuoron</label>
+									<input type="checkbox" id="drawCardSkip" name="skip" checked>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Game and players lobby screen -->
+	<div id="gameLobbyScreen" style="display:none" class="container bg-light py-3 my-3">
+		<div class="text-center justify-content-center">
+			<img src="./images/Logo.png" alt="Logo" height="80px">
+			</br></br>
+			<p id="gameCodeText" class="lead"></p>
+			<p id="playersAmountText" class="lead"></p>
+			<table id="gameInfoTable" class="table border game-info"></table>
+			</br>
+			<p id="playersNumWarningText" style="display:none">
+				Pelin aloittamiseen tarvitaan vähintään kaksi pelaajaa
+			</p>
+			<button id="startGameButton" type="button" class="btn btn-outline-primary">Aloita peli</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button id="refreshButton" type="button" class="btn btn-secondary"
+				onClick="window.location.reload();">Takaisin</button>
+		</div>
+	</div>
+
+	<!-- The game screen -->
+	<div id="gameScreen" style="display:none" class="container bg-light my-1">
+		<div class="row justify-content-center">
+			<!-- The game info view -->
+			<div id="gameInfoView" class="col-3">
+				<p id="gameCodeText2" class="lead"></p>
+				<div class="table-responsive players">
+					<table id="playerInfoTable" class="table border table-sm"></table>
+				</div>
+				<p id="deckText" class="lead"></p>
+				<button type="submit" id="drawCardButton" class="btn btn-outline-primary">
+					Nosta kortti
+				</button>
+				</br></br>
+				<img id="discardTop" class="discardTopImg"></img>
+			</div>
+			<!-- The cards view -->
+			<div id="cardsView" class="col-8">
+				<h5>
+					KORTIT
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="submit" id="unoButton" class="btn btn-outline-primary">
+						UNO
+					</button>
+				</h5>
+
+				<div class="table-responsive cards">
+					<table id="cardsTable" class="table border cards"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- The game end screen -->
+	<div id="gameEndScreen" style="display:none" class="container bg-light py-3 my-3">
+		<div class="text-center justify-content-center">
+			<img src="./images/Logo.png" alt="Logo" height="80px">
+			</br></br>
+			<h4>Peli loppui!</h4>
+			</br></br>
+			<h6 id="winnerText"></h6>
+			</br></br>
+			<button id="refreshButton" type="button" class="btn btn-primary"
+				onClick="window.location.reload();">Etusivulle</button>
+		</div>
+	</div>
+
+	<!-- Color chooser modal -->
+	<div class="modal" id="colorModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Valitse väri</h5>
+					<button type="button" class="close" id="closeModalButton" data-dismiss="modal" aria-label="Sulje">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<input type="radio" id="Blue" name="color" value="Blue">
+					<label for="Blue">Sininen</label><br>
+					<input type="radio" id="Red" name="color" value="Red">
+					<label for="Red">Punainen</label><br>
+					<input type="radio" id="Green" name="color" value="Green">
+					<label for="Green">Vihreä</label><br>
+					<input type="radio" id="Yellow" name="color" value="Yellow">
+					<label for="Yellow">Keltainen</label><br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="saveModalButton" class="btn btn-primary">Tallenna</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script type="text/javascript" src="./js/helpers/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="./js/helpers/jquery.min.js"></script>
+
+	<script type="module" src="./js/main/handler.js"></script>
+	<script type="module" src="./js/main/graphics.js"></script>
+	<script type="module" src="./js/main/audio.js"></script>
+	<script type="module" src="./js/main/keyboard.js"></script>
+
+</body>
+
+</html>
