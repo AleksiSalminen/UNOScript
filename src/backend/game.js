@@ -11,7 +11,13 @@ module.exports = {
    * 
    */
   createNewGame(client, params) {
-    let roomName = makeid(5);
+    let roomName = "";
+    if (params.gameCode.length === 0) {
+      roomName = makeid(5);
+    }
+    else {
+      roomName = params.gameCode;
+    }
     clientRooms[client.id] = roomName;
 
     state[roomName] = initGame(client.id, params);

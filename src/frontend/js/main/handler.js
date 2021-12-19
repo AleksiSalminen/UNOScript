@@ -154,6 +154,7 @@ function updateGame(playerNumber, gameState) {
  */
 function newGame() {
   const name = document.getElementById("name").value;
+  const gameCode = document.getElementById("newGameCodeInput").value;
   const startCardsNum = document.getElementById("startCardsQuantity").value;
   const playersMaxNum = document.getElementById("playersMaxQuantity").value;
   const drawCardSkip = document.getElementById("drawCardSkip").checked;
@@ -161,6 +162,7 @@ function newGame() {
   
   socket.emit('newGame', { 
     name: name,
+    gameCode: gameCode,
     startCardsNum: startCardsNum,
     playersMaxNum: playersMaxNum,
     drawCardSkip: drawCardSkip,
