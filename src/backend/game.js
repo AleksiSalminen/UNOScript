@@ -309,6 +309,38 @@ function makeAPlay(clientID, card, state) {
   if (currentPlayer.cards.length === 0) {
     handleGameEnd(currentPlayer, state);
   }
+
+  // If number card combo is activated, check if other
+  // valid cards
+  if (state.numberCardCombo) {
+    handleNumberCardCombo(currentPlayerIndex, state);
+  }
+}
+
+function handleNumberCardCombo(plIndex, state) {
+  const player = state.players[plIndex];
+  const discardTop = state.discardPile[state.discardPile.length-1];
+  const cards = player.cards;
+
+  let foundNumberMatch = false;
+  for (let i = 0;i < cards.length;i++) {
+    const card = cards[i];
+    if (card.number < 10 && card.number === discardTop.number) {
+      foundNumberMatch = true;
+      i = cards.length;
+    }
+  }
+
+  if (foundNumberMatch) {
+    let prevPlayerIndex = -1;
+    if (state.direction === "Normal") {
+      prevPlayerIndex = plIndex-1;
+    }
+    else if (state.direction === "Reversed") {
+      prevPlayerIndex = plIndex+1;
+    }
+    changeTurn(prevPlayerIndex, 1, state);
+  }
 }
 
 function changeTurn (currentPlayerIndex, rounds, state) {
