@@ -8,6 +8,7 @@ const {
   removeClient,
   addCard,
   drawCard,
+  skipTurn,
   callUno
 } = require("./game");
 
@@ -32,6 +33,9 @@ io.on("connection", (client) => {
 
   client.on("drawCard", handleDrawCard);
   function handleDrawCard(params) { drawCard(client, params); }
+
+  client.on("skipTurn", handleSkipTurn);
+  function handleSkipTurn(params) { skipTurn(client, params); }
 
   client.on("callUno", handleCallUno);
   function handleCallUno(params) { callUno(client, params); }

@@ -49,7 +49,7 @@ function updateLobby(player, players, gameCode, playersMaxNum) {
   }
 }
 
-function updateGameInfoView(player, players, gameCode, deckSize, discardTop, currentPlayer) {
+function updateGameInfoView(player, players, gameCode, deckSize, discardTop, currentPlayer, usedNumberCardCombo, drewCard) {
   if (gameCode) {
     let gameCodeTextElem = document.getElementById("gameCodeText2");
     gameCodeTextElem.innerHTML = "Pelikoodi: " + gameCode;
@@ -110,6 +110,17 @@ function updateGameInfoView(player, players, gameCode, deckSize, discardTop, cur
   let discardTopImgElem = document.getElementById("discardTop");
   let discardTopImgLoc = "./images/cards/" + discardTop.color + "/" + discardTop.number + ".png";
   discardTopImgElem.src = discardTopImgLoc;
+
+  let skipButton = document.getElementById("skipButton");
+  let drawCardButton = document.getElementById("drawCardButton");
+  if (usedNumberCardCombo || drewCard) {
+    skipButton.style.display = "block";
+    drawCardButton.style.display = "none";
+  }
+  else {
+    skipButton.style.display = "none";
+    drawCardButton.style.display = "block";
+  }
 }
 
 function updateCardsTableView(player) {
@@ -137,12 +148,10 @@ function updateCardsTableView(player) {
     cardsTableItems += "</tr>"
   }
   cardsTable.innerHTML = cardsTableItems;
-
-
 }
 
-function updateGameView(player, players, gameCode, deckSize, discardTop, currentPlayer) {
-  updateGameInfoView(player, players, gameCode, deckSize, discardTop, currentPlayer);
+function updateGameView(player, players, gameCode, deckSize, discardTop, currentPlayer, usedNumberCardCombo, drewCard) {
+  updateGameInfoView(player, players, gameCode, deckSize, discardTop, currentPlayer, usedNumberCardCombo, drewCard);
   updateCardsTableView(player);
 }
 
@@ -151,7 +160,7 @@ function updateGameEndView(winner, players) {
   winnerTextElem.innerHTML = "Voittaja on: " + winner;
 }
 
-function updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer, winner, playersMaxNum) {
+function updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer, winner, playersMaxNum, usedNumberCardCombo, drewCard) {
   let gameLobbyElem = document.getElementById("gameLobbyScreen");
   let gameElem = document.getElementById("gameScreen");
   let gameEndElem = document.getElementById("gameEndScreen");
@@ -170,7 +179,7 @@ function updateGraphics(player, players, gameCode, status, deckSize, discardTop,
     gameLobbyElem.style.display = "none";
     gameElem.style.display = "block";
     gameEndElem.style.display = "none";
-    updateGameView(player, players, gameCode, deckSize, discardTop, currentPlayer);
+    updateGameView(player, players, gameCode, deckSize, discardTop, currentPlayer, usedNumberCardCombo, drewCard);
   }
   else if (status === "GameEnd") {
     gameLobbyElem.style.display = "none";

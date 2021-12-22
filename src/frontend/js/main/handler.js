@@ -14,6 +14,8 @@ let deckSize = 0;
 let playedCard = {};
 let discardTop;
 let currentPlayer;
+let usedNumberCardCombo = false;
+let drewCard = false;
 let playersMaxNum = 10;
 
 /* Establish socket connection with the server backend */
@@ -95,6 +97,11 @@ function drawCard () {
 }
 document.getElementById('drawCardButton').addEventListener('click', drawCard);
 
+function skipTurn () {
+  socket.emit('skipTurn', {});
+}
+document.getElementById('skipButton').addEventListener('click', skipTurn);
+
 function callUno () {
   socket.emit('callUno', {});
 }
@@ -143,9 +150,11 @@ function updateGame(playerNumber, gameState) {
   players = gameState.players;
   currentPlayer = gameState.currentPlayer;
   winner = gameState.winner;
+  usedNumberCardCombo = gameState.usedNumberCardCombo;
+  drewCard = gameState.drewCard;
   playersMaxNum = gameState.playersMaxNum;
   player = findPlayer(playerNumber, players);
-  GRAPHICS.updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer, winner, playersMaxNum);
+  GRAPHICS.updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer, winner, playersMaxNum, usedNumberCardCombo, drewCard);
   updateCardsListeners();
 }
 

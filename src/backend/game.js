@@ -131,20 +131,28 @@ module.exports = {
     const roomName = clientRooms[client.id];
     
     if (checkIfUserTurn(client.id, state[roomName])) {
-      if (!state[roomName].usedNumberCardCombo) {
-        if (checkIfValidCard(card, state[roomName])) {
-          makeAPlay(client.id, card, state[roomName]);
-        }
-        else {
-          console.log("Invalid card");
-        }
-      }
-      else {
+      if (state[roomName].usedNumberCardCombo) {
         if (checkIfValidNumberCombo(card, state[roomName])) {
           makeAPlay(client.id, card, state[roomName]);
         }
         else {
           console.log("Invalid card (Number combo)");
+        }
+      }
+      if (state[roomName].drewCard) {
+        if (checkIfDrawnCard(card, state[roomName].drawnCard)) {
+          makeAPlay(client.id, card, state[roomName]);
+        }
+        else {
+          console.log("Invalid card (Drew card)");
+        }
+      }
+      else {
+        if (checkIfValidCard(card, state[roomName])) {
+          makeAPlay(client.id, card, state[roomName]);
+        }
+        else {
+          console.log("Invalid card");
         }
       }
     }
@@ -164,13 +172,34 @@ module.exports = {
     const roomName = clientRooms[client.id];
     
     if (checkIfUserTurn(client.id, state[roomName])) {
-      drawCardForPlayer(client.id, state[roomName]);
+      if (!state[roomName].usedNumberCardCombo) {
+        drawCardForPlayer(client.id, state[roomName]);
+      }
+      else {
+        console.log("Not allowed on number card combo");
+      }
     }
     else {
       console.log("Not user's turn");
     }
 
     emitGameState(state[roomName]);
+  },
+
+  /**
+   * 
+   * @param {*} client 
+   * @param {*} params 
+   */
+  skipTurn (client, params) {
+    const roomName = clientRooms[client.id];
+    if (state[roomName].usedNumberCardCombo || state[roomName].drewCard) {
+      let currentPlayerIndex = findPlayerIndexFromID(client.id, state[roomName]);
+      changeTurn(currentPlayerIndex, 1, state[roomName]);
+      state[roomName].usedNumberCardCombo = false;
+      state[roomName].drewCard = false;
+      emitGameState(state[roomName]);
+    }
   },
 
   /**
@@ -267,6 +296,19 @@ function checkIfValidNumberCombo(card, state) {
   return isValidCard;
 }
 
+function checkIfDrawnCard(card, drawnCard) {
+  if ((card.number === 13 || card.number === 14) 
+  && card.number === drawnCard.number) {
+    return true;
+  }
+  else if (card.number === drawnCard.number && card.color === drawnCard.color) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
 function findPlayerIndexFromID (clientID, state) {
   let currentPlayerIndex = -1;
 
@@ -337,6 +379,8 @@ function makeAPlay(clientID, card, state) {
     state.usedNumberCardCombo = false;
     handleNumberCardCombo(currentPlayerIndex, state);
   }
+
+  state.drewCard = false;
 }
 
 function handleNumberCardCombo(plIndex, state) {
@@ -480,9 +524,15 @@ function drawCardForPlayer(clientID, state) {
     state.discardPile = [discardTop];
   }
 
+  const validCard = checkIfValidCard(newCard, state);
   // If draw card skip is enabled and new card is invalid
-  if (state.drawCardSkip && !checkIfValidCard(newCard, state)) {
+  if (state.drawCardSkip && !validCard) {
     changeTurn(currentPlayerIndex, 1, state);
+  }
+  // If draw card skip is enabled and new card is valid
+  else if (state.drawCardSkip && validCard) {
+    state.drewCard = true;
+    state.drawnCard = newCard;
   }
 }
 
@@ -519,6 +569,12 @@ function censorGamestate (plNumber, gameState) {
     playersMaxNum: gameState.playersMaxNum,
     players: []
   };
+
+  if (plNumber === gameState.currentPlayer) {
+    censoredState.usedNumberCardCombo = gameState.usedNumberCardCombo;
+    censoredState.drewCard = gameState.drewCard;
+    censoredState.drawnCard = gameState.drawnCard;
+  }
 
   let players = gameState.players;
   for (let plI = 0;plI < players.length;plI++) {
@@ -593,6 +649,8 @@ function initGame(clientID, params) {
     direction: "Normal",
     unoCalled: false,
     drawCardSkip: params.drawCardSkip,
+    drewCard: false,
+    drawnCard: undefined,
     numberCardCombo: params.numberCardCombo,
     usedNumberCardCombo: false,
     startCardsNum: params.startCardsNum,
