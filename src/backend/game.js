@@ -131,11 +131,21 @@ module.exports = {
     const roomName = clientRooms[client.id];
     
     if (checkIfUserTurn(client.id, state[roomName])) {
-      if (checkIfValidCard(card, state[roomName])) {
-        makeAPlay(client.id, card, state[roomName]);
+      if (!state[roomName].usedNumberCardCombo) {
+        if (checkIfValidCard(card, state[roomName])) {
+          makeAPlay(client.id, card, state[roomName]);
+        }
+        else {
+          console.log("Invalid card");
+        }
       }
       else {
-        console.log("Invalid card");
+        if (checkIfValidNumberCombo(card, state[roomName])) {
+          makeAPlay(client.id, card, state[roomName]);
+        }
+        else {
+          console.log("Invalid card (Number combo)");
+        }
       }
     }
     else {
@@ -246,6 +256,17 @@ function checkIfValidCard(card, state) {
   return isValidCard;
 }
 
+function checkIfValidNumberCombo(card, state) {
+  let isValidCard = false;
+
+  const discardTop = state.discardPile[state.discardPile.length-1];
+  if (card.number === discardTop.number) {
+    isValidCard = true;
+  }
+
+  return isValidCard;
+}
+
 function findPlayerIndexFromID (clientID, state) {
   let currentPlayerIndex = -1;
 
@@ -313,6 +334,7 @@ function makeAPlay(clientID, card, state) {
   // If number card combo is activated, check if other
   // valid cards
   if (state.numberCardCombo) {
+    state.usedNumberCardCombo = false;
     handleNumberCardCombo(currentPlayerIndex, state);
   }
 }
@@ -340,6 +362,7 @@ function handleNumberCardCombo(plIndex, state) {
       prevPlayerIndex = plIndex+1;
     }
     changeTurn(prevPlayerIndex, 1, state);
+    state.usedNumberCardCombo = true;
   }
 }
 
@@ -571,6 +594,7 @@ function initGame(clientID, params) {
     unoCalled: false,
     drawCardSkip: params.drawCardSkip,
     numberCardCombo: params.numberCardCombo,
+    usedNumberCardCombo: false,
     startCardsNum: params.startCardsNum,
     playersMaxNum: params.playersMaxNum,
     players: [
