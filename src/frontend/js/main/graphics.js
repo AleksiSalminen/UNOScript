@@ -9,6 +9,25 @@ function updateLobby(player, players, gameCode, playersMaxNum) {
   let playersAmountTextElem = document.getElementById("playersAmountText");
   playersAmountTextElem.innerHTML = "Pelaajia: " + players.length + "/" + playersMaxNum;
 
+  let startCardsQuantityText = document.getElementById("startCardsQuantityText");
+  startCardsQuantityText.innerHTML = "Aloituskorttien määrä: " + startCardsQuantity.value;
+
+  let drawCardSkipText = document.getElementById("drawCardSkipText");
+  if (drawCardSkip.checked) {
+    drawCardSkipText.innerHTML = "Kortin nostaminen päättää vuoron: Kyllä";
+  }
+  else {
+    drawCardSkipText.innerHTML = "Kortin nostaminen päättää vuoron: Ei";
+  }
+
+  let numberCardComboText = document.getElementById("numberCardComboText");
+  if (numberCardCombo.checked) {
+    numberCardComboText.innerHTML = "Numerokorttikombo: Kyllä";
+  }
+  else {
+    numberCardComboText.innerHTML = "Numerokorttikombo: Ei";
+  }
+
   let infoTable = document.getElementById("gameInfoTable");
   let infoTableItems = `
     <thead>
