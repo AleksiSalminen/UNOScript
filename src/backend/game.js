@@ -538,6 +538,7 @@ function initGame(clientID, params) {
     direction: "Normal",
     unoCalled: false,
     drawCardSkip: params.drawCardSkip,
+    numberCardCombo: params.numberCardCombo,
     startCardsNum: params.startCardsNum,
     playersMaxNum: params.playersMaxNum,
     players: [

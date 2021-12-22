@@ -158,6 +158,7 @@ function newGame() {
   const startCardsNum = document.getElementById("startCardsQuantity").value;
   const playersMaxNum = document.getElementById("playersMaxQuantity").value;
   const drawCardSkip = document.getElementById("drawCardSkip").checked;
+  const numberCardCombo = document.getElementById("numberCardCombo").checked;
   const deckSettings = getDeckSettings();
   
   socket.emit('newGame', { 
@@ -166,6 +167,7 @@ function newGame() {
     startCardsNum: startCardsNum,
     playersMaxNum: playersMaxNum,
     drawCardSkip: drawCardSkip,
+    numberCardCombo: numberCardCombo,
     deckSettings: deckSettings
   });
 }
