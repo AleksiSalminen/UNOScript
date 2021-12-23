@@ -105,7 +105,7 @@ function updateGameInfoView(player, players, gameCode, deckSize, discardTop, cur
     else {
       if (currentPlayer == players[i].number) {
         infoTableItems += `
-          <tr class="table-primary">
+          <tr class="bg-blink">
             <th scope="row">` + players[i].name + `</th>
             <th scope="row">` + players[i].cards.length + `</th>
           </tr>
@@ -142,7 +142,7 @@ function updateGameInfoView(player, players, gameCode, deckSize, discardTop, cur
   }
 }
 
-function updateCardsTableView(player) {
+function updateCardsTableView(player, currentPlayer) {
   const cards = player.cards;
   const cardsOnCol = Math.ceil(cards.length/10);
   let cardsTable = document.getElementById("cardsTable");
@@ -167,11 +167,20 @@ function updateCardsTableView(player) {
     cardsTableItems += "</tr>"
   }
   cardsTable.innerHTML = cardsTableItems;
+
+  /*
+  if (player.number === currentPlayer) {
+    cardsTable.className = "table-responsive cards bg-secondary";
+  }
+  else {
+    cardsTable.className = "table-responsive cards bg-light";
+  }
+  */
 }
 
 function updateGameView(player, players, gameCode, deckSize, discardTop, currentPlayer, usedNumberCardCombo, drewCard) {
   updateGameInfoView(player, players, gameCode, deckSize, discardTop, currentPlayer, usedNumberCardCombo, drewCard);
-  updateCardsTableView(player);
+  updateCardsTableView(player, currentPlayer);
 }
 
 function updateGameEndView(winner, player, players, standings) {

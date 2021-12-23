@@ -1,41 +1,113 @@
 table.cards td:hover {
-    background-color: rgba(0,0,0,.075);
+    background-color: rgba(0, 0, 0, .075);
     cursor: pointer;
 }
 
 .table-responsive.game-info {
-    max-height:50%;
+    max-height: 50%;
 }
 
 .table-responsive.players {
-    max-height:25%;
+    max-height: 25%;
 }
 
 .table-responsive.cards {
-    max-height:70%;
+    max-height: 70%;
 }
 
 .discardTopImg {
-    max-height:25%;
+    max-height: 25%;
 }
 
 .game-info {
-    max-width:70%;
-    max-height:70%;
+    max-width: 70%;
+    max-height: 70%;
     margin: 0 auto;
 }
 
 .settings-card {
-    max-height:100%;
+    max-height: 100%;
 }
 
 .settings-card-div {
-    max-height:5rem;
-    max-width:11rem;
+    max-height: 5rem;
+    max-width: 11rem;
 }
 
-.vertical-scrollable> .row {
+.vertical-scrollable>.row {
     height: 15rem;
     width: 100%;
-    overflow-y: scroll; 
+    overflow-y: scroll;
+}
+
+@-webkit-keyframes bg-blink {
+    0% {
+        background-color: #fff;
+    }
+
+    49% {
+        background-color: #fff;
+    }
+
+    50% {
+        background-color: #bad0f8;
+    }
+
+    99% {
+        background-color: #bad0f8;
+    }
+
+    100% {
+        background-color: #fff;
+    }
+}
+
+@-moz-keyframes bg-blink {
+    0% {
+        background-color: #fff;
+    }
+
+    49% {
+        background-color: #fff;
+    }
+
+    50% {
+        background-color: #bad0f8;
+    }
+
+    99% {
+        background-color: #bad0f8;
+    }
+
+    100% {
+        background-color: #fff;
+    }
+}
+
+@keyframes bg-blink {
+    0% {
+        background-color: #fff;
+    }
+
+    49% {
+        background-color: #fff;
+    }
+
+    50% {
+        background-color: #bad0f8;
+    }
+
+    99% {
+        background-color: #bad0f8;
+    }
+
+    100% {
+        background-color: #fff;
+    }
+}
+
+.bg-blink {
+    -webkit-animation: bg-blink 2s infinite;
+    -moz-animation: bg-blink 2s infinite;
+    animation: bg-blink 2s infinite;
 }
