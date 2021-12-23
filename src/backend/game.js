@@ -139,7 +139,7 @@ module.exports = {
           console.log("Invalid card (Number combo)");
         }
       }
-      if (state[roomName].drewCard) {
+      else if (state[roomName].drewCard) {
         if (checkIfDrawnCard(card, state[roomName].drawnCard)) {
           makeAPlay(client.id, card, state[roomName]);
         }
