@@ -174,12 +174,59 @@ function updateGameView(player, players, gameCode, deckSize, discardTop, current
   updateCardsTableView(player);
 }
 
-function updateGameEndView(winner, players) {
+function updateGameEndView(winner, player, players, standings) {
   let winnerTextElem = document.getElementById("winnerText");
   winnerTextElem.innerHTML = "Voittaja on: " + winner;
+
+  let standingsTable = document.getElementById("standingsTable");
+  let standingsTableItems = `
+    <thead>
+      <th scope="col-1">Sija</th>
+      <th scope="col-4">Nimi</th>
+      <th scope="col-2">Kortteja</th>
+      <th scope="col-2">Pisteitä</th>
+    </thead>
+  `;
+
+  // Update standings table
+  for (let i = 0;i < standings.length;i++) {
+    const standing = standings[i];
+
+    let curPlayer;
+    for (let plI = 0;plI < players.length;plI++) {
+      if (players[plI].name === standing.name) {
+        curPlayer = players[plI];
+        plI = players.length;
+      }
+    }
+
+    const position = i+1;
+    if (curPlayer.name !== player.name) {
+      standingsTableItems += `
+          <tr>
+            <td>` + position + `</td>
+            <td>` + standing.name + `</td>
+            <td>` + curPlayer.cards + `</td>
+            <td>` + standing.points + `</td>
+          </tr>
+        `;
+    }
+    else {
+      standingsTableItems += `
+          <tr>
+            <th scope="row">` + position + `</th>
+            <th scope="row">` + standing.name + `</th>
+            <th scope="row">` + curPlayer.cards.length + `</th>
+            <th scope="row">` + standing.points + `</th>
+          </tr>
+        `;
+    }
+  }
+
+  standingsTable.innerHTML = standingsTableItems;
 }
 
-function updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer, winner, playersMaxNum, usedNumberCardCombo, drewCard) {
+function updateGraphics(player, players, gameCode, status, deckSize, discardTop, currentPlayer, winner, playersMaxNum, usedNumberCardCombo, drewCard, standings) {
   let gameLobbyElem = document.getElementById("gameLobbyScreen");
   let gameElem = document.getElementById("gameScreen");
   let gameEndElem = document.getElementById("gameEndScreen");
@@ -204,7 +251,7 @@ function updateGraphics(player, players, gameCode, status, deckSize, discardTop,
     gameLobbyElem.style.display = "none";
     gameElem.style.display = "none";
     gameEndElem.style.display = "block";
-    updateGameEndView(winner, players);
+    updateGameEndView(winner, player, players, standings);
   }
 }
 

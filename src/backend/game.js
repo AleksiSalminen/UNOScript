@@ -440,6 +440,7 @@ function changeTurn (currentPlayerIndex, rounds, state) {
 function handleGameEnd(currentPlayer, state) {
   state.status = "GameEnd";
   state.winner = currentPlayer.name;
+  state.standings = calculateStandings(state);
 }
 
 function handleSpecialCards(currentPlayerIndex, card, state) {
@@ -546,6 +547,48 @@ function resetJokerCards(state) {
   }
 }
 
+function calculateStandings(state) {
+  let standings = [];
+
+  for (let plI = 0;plI < state.players.length;plI++) {
+    const player = state.players[plI];
+    const cards = player.cards;
+
+    let points = 0;
+    for (let cardI = 0;cardI < cards.length;cardI++) {
+      const card = cards[cardI];
+      points += getCardPoints(card);
+    }
+
+    standings.push({
+      name: player.name,
+      points: points
+    });
+  }
+
+  standings.sort(function (a, b) {
+    return a.points - b.points
+  });
+
+  return standings;
+}
+
+function getCardPoints(card) {
+  let points = 0;
+
+  if (card.number < 10) {
+    points = card.number;
+  }
+  else if (card.number === 10 || card.number === 11 || card.number === 12) {
+    points = 20;
+  }
+  else if (card.number === 13 || card.number === 14) {
+    points = 50;
+  }
+
+  return points;
+}
+
 function shuffleDeck(deck) {
   let shuffledDeck = [];
   let chosenCardIndex = -1;
@@ -563,6 +606,7 @@ function censorGamestate (plNumber, gameState) {
   let censoredState = {
     status: gameState.status,
     winner: gameState.winner,
+    standings: gameState.standings,
     deckSize: gameState.deck.length,
     discardTop: gameState.discardPile[gameState.discardPile.length-1],
     currentPlayer: gameState.currentPlayer,
